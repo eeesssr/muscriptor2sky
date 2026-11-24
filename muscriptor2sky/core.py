@@ -56,6 +56,46 @@ DEGREE_NAMES = ["1", "2", "3", "4", "5", "6", "7",
 NOTE_NAMES = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
 CONSONANT = {0, 3, 4, 5, 7, 8, 9}
 
+# ---------------------------------------------------------------------------
+# 虚音（combination tone）表
+# ---------------------------------------------------------------------------
+#
+# 15 键是纯白键乐器，5 个黑键（C# D# F# G# A#）弹不出来。
+# 理论上，同时按下两个白键会在耳内产生「差音」(difference tone)，
+# 其频率 = |f2 - f1|，可以落在缺失的半音上。
+#
+# 下表是穷举 15 键全部两两组合（差音与立方差音 2f1-f2）后，
+# 对每个缺失音级取误差最小的方案（误差单位：音分，<20 分才算听得准）。
+#
+# 格式: 目标音级 -> (键索引 a, 键索引 b, 音分误差, 效应说明)
+#
+# ⚠️ 重要的物理限制（实测频谱验证，不是理论推导） ----
+# 用钢琴式谐波叠加合成后做 FFT，目标频率处的能量比基音低 67~102 dB。
+# 也就是说：差音在数学上精确存在（误差 5~6 音分），
+# 但在实际响度下被两个基音完全掩蔽，人耳听不到。
+# 且凑虚音所需的音程都是 11~23 半音的不协和音程，本身很刺耳。
+#
+# 所以「虚音模式」只作为**实验性输出**保留：
+# 它让谱面在物理上多出一条本不存在的音，实际听感通常是「按错的两个音」。
+# G#(8) 没有任何方案误差小于 20 音分（最好 25.9 分），因此不可用。
+VIRTUAL_NOTE_TABLE = {
+    1:  (11, 14, 5.5, "差音 B4+C6 -> C#5"),   # C#
+    3:  (5, 12, 6.1, "差音 F4+E5 -> D#4"),     # D#
+    6:  (4, 9, 5.5, "差音 E4+F5 -> F#4"),      # F#
+    8:  None,                                   # G# 无可用方案（最好 25.9 分）
+    10: (0, 11, 6.1, "差音 C4+B4 -> A#3"),     # A#
+}
+
+
+def virtual_pair_for(pitch_class: int):
+    """返回该黑键音级对应的「虚音两键组合」，不可用则返回 None。"""
+    return VIRTUAL_NOTE_TABLE.get(pitch_class % 12)
+
+
+def virtual_coverage(missing: Sequence[int]) -> Dict[int, bool]:
+    """给出每个缺失音级是否能被虚音覆盖。"""
+    return {pc: VIRTUAL_NOTE_TABLE.get(pc % 12) is not None for pc in missing}
+
 
 def build_keys(root: int = 60, count: int = 15) -> List[int]:
     """C 大调 15 键的音高表。"""
@@ -654,10 +694,31 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         wall_ms = beat_pos * old_cell
         ms = int(round(wall_ms / unit_ms)) * unit_ms
         ms = max(0, ms)
+        # 虚音模式：对没被吸附到「正确」白键的黑键音，额外补两个键凑差音。
+        # 详见 VIRTUAL_NOTE_TABLE 的注释 —— 这是实验性输出，
+        # 物理上差音会被基音掩蔽，听感通常是「按错的两个音」。
+        virtual_extra = {}
+        if getattr(args, "virtual_notes", False):
+            for n, k, how, q in picked:
+                if how != "snapped":
+                    continue
+                pair = virtual_pair_for(q % 12)
+                if pair is None:
+                    continue
+                ai, bi, err, _desc = pair
+                virtual_extra[ai] = max(virtual_extra.get(ai, 0), 1)
+                virtual_extra[bi] = max(virtual_extra.get(bi, 0), 1)
+                stat["virtual"] = stat.get("virtual", 0) + 1
+
         for k in sorted(seen):
             how = seen[k][1]
             stat[how] += 1
             out.append(SkyNote(ms, keys.index(k), 1, k - transpose, how))
+
+        for ki in sorted(virtual_extra):
+            if ki in seen:
+                continue
+            out.append(SkyNote(ms, ki, 1, 0, "virtual"))
 
     out.sort(key=lambda s: (s.time_ms, s.key_idx))
 
@@ -687,6 +748,9 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         "stat": stat,
         "drums": m.drums,
         "src": len(notes),
+        # 可弹性：旋律里有多少音是黑键（15 键琴弹不出来）
+        "playability": 100.0 * (1.0 - stat["snapped"] / max(1, len(notes))) if notes else 0.0,
+        "pitch_level": int(getattr(args, "pitch_level", 0) or 0),
         # SkyStudio 兼容性：时间点是否落在节拍网格上
         "grid_ok": grid_compatible([s.time_ms for s in out], bpm_now),
     }
