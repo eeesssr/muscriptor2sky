@@ -124,6 +124,12 @@ def main(argv=None) -> int:
     else:
         print("定调: pitchLevel = 0（C 调，谱面按 15 键白键书写）")
     print("[可弹性] 旋律可用 15 键弹奏的比例 %.1f%%" % info.get("playability", 0.0))
+    md = info.get("melody")
+    if md:
+        print(
+            "[主旋律] %d/%d 保留（%.1f%%）"
+            % (md["kept"], md["total"], md["rate"])
+        )
     tu = info.get("time_unit_beats", 1.0) or 1.0
     unit_txt = "1" if abs(tu - 1.0) < 1e-9 else "1/%d" % round(1 / tu)
     print(

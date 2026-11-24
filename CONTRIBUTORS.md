@@ -7,7 +7,7 @@
 - **Claude (Anthropic)** — v1.4.1: Melody preservation algorithm enhancement
   - Fixed primary melody loss during polyphony limiting and note merging
   - Implemented priority-based note selection to ensure main melody is always preserved
-  - Improved melody retention from ~0.8% to 100% in test cases
+  - Improved melody survival from 89.8%–99.3% (worst case) to 100% across 5 test tracks
 
 ## Acknowledgments
 

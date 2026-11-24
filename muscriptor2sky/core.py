@@ -637,15 +637,19 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
     for n in notes:
         by_onset.setdefault(n.start, []).append(n.pitch)
 
-    # 记录哪些音符是主旋律（每个时刻的最高音）
+    # 记录哪些音符是主旋律（每个时刻的最高音）。
+    # 先建 (start, pitch) -> 音符 的索引，避免 O(onset x notes) 的嵌套扫描
+    # （Flower Dance 是 1314 x 2584，两百万次比较）。
+    first_at: Dict[Tuple[int, int], Note] = {}
+    for n in notes:
+        key = (n.start, n.pitch)
+        if key not in first_at:      # 同一位置同音高有多个音符时只取第一个
+            first_at[key] = n
     melody_note_ids = set()
     for start_tick, pitches in by_onset.items():
-        max_pitch = max(pitches)
-        # 找到这个时刻音高是最高音的第一个音符
-        for n in notes:
-            if n.start == start_tick and n.pitch == max_pitch:
-                melody_note_ids.add(id(n))
-                break
+        n = first_at.get((start_tick, max(pitches)))
+        if n is not None:
+            melody_note_ids.add(id(n))
 
     melody = [max(v) for _, v in sorted(by_onset.items())]
 
@@ -690,6 +694,12 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
 
     out: List[SkyNote] = []
     stat = {"exact": 0, "octave": 0, "snapped": 0, "merged": 0, "dropped": 0}
+
+    # 主旋律存活统计：melody_note_ids 里的音符有多少真的写进了输出。
+    # 这个计数必须在这里累加（而不是事后从 SkyNote 反推）——因为
+    # SkyNote.src_pitch 存的是「吸附后的音高 - 移调量」，原始音符身份已经丢了，
+    # 从输出反推只能靠猜，历史上就因此量出过「保留率 0.8%」这种假数字。
+    melody_kept = 0
 
     # SkyStudio 铁律：gcd(time 间隔) 必须 == 60000/bpm，否则播放速度会歪。
     # 所以先把 bpm 归一到「60000/bpm 为整数」的值，再用这个 cell 铺时间轴。
@@ -847,6 +857,8 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         for k in sorted(seen):
             n, how, is_melody = seen[k]
             stat[how] += 1
+            if is_melody:
+                melody_kept += 1
             out.append(SkyNote(ms, keys.index(k), 1, k - transpose, how))
 
         for ki in sorted(virtual_extra):
@@ -884,6 +896,13 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         "src": len(notes),
         # 可弹性：旋律里有多少音是黑键（15 键琴弹不出来）
         "playability": 100.0 * (1.0 - stat["snapped"] / max(1, len(notes))) if notes else 0.0,
+        # 主旋律存活率：每个 onset 的最高音有多少真的出现在输出里。
+        # 1.4.1 之前同键合并与复音裁剪会无声吃掉一部分主旋律。
+        "melody": {
+            "total": len(melody_note_ids),
+            "kept": melody_kept,
+            "rate": 100.0 * melody_kept / max(1, len(melody_note_ids)),
+        },
         "pitch_level": int(getattr(args, "pitch_level", 0) or 0),
         # SkyStudio 兼容性：时间点是否落在节拍网格上
         "grid_ok": grid_compatible([s.time_ms for s in out], bpm_now),
