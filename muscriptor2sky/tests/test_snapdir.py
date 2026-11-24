@@ -84,20 +84,31 @@ def test_empty_melody_is_safe():
 
 
 def test_pitch_class_mapping_consistent_end_to_end():
-    """端到端：转换后，同一源音级应尽量落到同一白键。"""
+    """端到端：需要吸附时，同一源音级必须始终落到同一白键。
+
+    必须用 transpose="none" 才会真正走到吸附分支 ——
+    开着自动定调时，整曲会被移调到调内音阶上，黑键根本不会触发吸附，
+    那样这条测试就变成了「什么都没测」。
+    """
     from muscriptor2sky.core import Midi, Note
-    # 构造一段反复使用 C#(61) 的旋律（上下交替出现）
+    # 反复使用 C#(61) 的旋律（上下交替出现），强制走吸附
     seq = [60, 61, 62, 61, 60, 61, 64, 61, 62, 61, 60, 61]
     m = Midi(ppq=480, tempos=[(0, 500000)])
     for i, p in enumerate(seq):
         m.notes.append(Note(start=i * 480, dur=240, pitch=p, vel=100, ch=0, track=0))
-    sky, info = midi_to_sky(m, _args(input="a.mid", grid=0.0))
+    sky, info = midi_to_sky(m, _args(input="a.mid", grid=0.0, transpose="none"))
     assert sky, "没有输出音符"
+    assert info["stat"]["snapped"] > 0, (
+        "这条测试要求真的发生吸附，实际 snapped=%d —— 测试没有覆盖目标分支"
+        % info["stat"]["snapped"])
 
-    # 同一输出键位索引不应因为上下文而分叉：C# 只允许对应 1 个键
+    # 按**原始 MIDI 音高**分组（不能用 s.src_pitch：那是折叠后、已减
+    # transpose 的内部值，拿它分组会把不同源音级混在一起）。
+    # 每个 onset 只有一个音，所以输出与输入按下标一一对应。
     import collections
     by_pc = collections.defaultdict(set)
-    for s in sky:
-        by_pc[s.src_pitch % 12].add(s.key_idx)
+    for src, s in zip(seq, sky):
+        by_pc[src % 12].add(s.key_idx)
+    assert len(by_pc) >= 3, "样本太少，覆盖不到多个音级"
     for pc, idxs in by_pc.items():
         assert len(idxs) == 1, "音级 %d 被映射到多个键位 %s" % (pc, sorted(idxs))

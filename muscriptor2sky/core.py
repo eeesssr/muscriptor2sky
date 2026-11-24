@@ -572,27 +572,69 @@ def detect_key(weighted: Sequence[Tuple[int, float]]) -> dict:
 
 
 def transpose_for_key(weighted: Sequence[Tuple[int, float]], key: int,
-                      lo: int, hi: int, max_octaves: int = 3) -> int:
+                      lo: int, hi: int, max_octaves: int = 3,
+                      weight_exact: float = 1.0) -> int:
     """在「移调后谱面内容必须是 C 大调形状」的约束下选移调量。
 
     约束是 t ≡ -key (mod 12)：原曲 key 大调音阶上的音，加上 t 之后
     正好落成 C 大调音阶的音级 —— 这样它才能被写成白键。
+    剩下的自由度只有八度（t 加减 12 的整数倍）。
 
-    剩下的自由度只有八度（t 加减 12 的整数倍），只影响音域：
-    挑一个让旋律尽量落进 [lo,hi] 的偏移即可。
+    ⚠️ 这里踩过一个坑，值得记下来
+    ------------------------------------------------------------
+    最初用的是「出界音符数最少」当评分。它看着合理，实际是错的代理指标：
+    对一首音域窄的曲子，t=-11 和 t=+1 的出界数都可能是 0，于是按 abs(t)
+    取小的那个 —— 选到 +1，把整曲抬高了一个八度。听起来就是「音高全都
+    不对了」，而代码里所有指标都是绿的。
+
+    真正的目标在这里是：**演奏出来的音高要等于原曲音高**。
+    因为 pitchLevel = key 会把整台键盘升 key 个半音（这个语义已经用游戏
+    截图逐键核对过），所以演奏音高 = fold(p + t) + key，
+    该音与原音高的差 = t + key - 12*m（m 是该音被折叠的次数）。
+
+    所以评分改成两段：
+      ① 主项：t + key == 0（即取 j = 0，t = -key）时，多数音能原样发声；
+              偏离这个条件会整体多抬一个八度，代价最大。
+      ② 次项：在同等条件下，尽量减少仍需折叠的音符（权重打折）。
+    两项都按权重累加，最后用 abs(t) 做确定性 tie-break。
     """
     base = (-key) % 12
     if not weighted:
         return base
+
+    def fold_times(q: int) -> int:
+        """把 q 折进 [lo,hi] 需要加减几个八度（正 = 向下折）。"""
+        m = 0
+        while q < lo:
+            q += 12
+            m -= 1
+            if m < -24:
+                break
+        while q > hi:
+            q -= 12
+            m += 1
+            if m > 24:
+                break
+        return m
+
     best = None
     best_t = base
     for m in range(-max_octaves, max_octaves + 1):
         t = base + 12 * m
-        oe = 0.0
+        j = (t + key) // 12          # 整体八度层数：dev = 12*(j - m_i)
+        hist: Dict[int, float] = {}
         for p, w in weighted:
-            if not (lo <= p + t <= hi):
-                oe += w
-        cand = (round(oe, 9), abs(t), t)
+            mi = fold_times(p + t)
+            hist[mi] = hist.get(mi, 0.0) + w
+        if not hist:
+            continue
+        # 主群：权重最大的那个折叠次数（并列时优先与 j 接近的）
+        mode_m = max(hist.items(), key=lambda kv: (kv[1], -abs(j - kv[0])))[0]
+        frac = hist[mode_m] / (sum(hist.values()) or 1.0)
+        # ① |j - mode(m)|：主群整体偏离原音高的八度数（0 最好）
+        # ② -frac：轮廓完整度（主群占比越大越好）
+        # ③ |t|：确定性 tie-break
+        cand = (abs(j - mode_m), -round(frac, 9), abs(t), t)
         if best is None or cand < best:
             best = cand
             best_t = t
@@ -896,7 +938,19 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
 
     notes = [n for n in m.notes if n.dur >= 1]
     if not notes:
-        return [], {"error": "没有可用音符"}
+        # 空输入也要给出完整的 info 结构，否则 CLI 读 info["pitch_level"] 会 KeyError，
+        # 用户看到的是崩溃而不是「这个文件没有音符」。
+        return [], {
+            "error": "没有可用音符",
+            "transpose": 0, "bpm": 0.0, "time_unit_beats": 1.0, "unit_ms": 1,
+            "range": (lo, hi), "stat": {"exact": 0, "octave": 0, "snapped": 0,
+                                        "merged": 0, "dropped": 0},
+            "drums": m.drums, "src": 0, "playability": 0.0, "pitch_level": 0,
+            "key": {"tonic": 0, "name": KEY_NAMES[0], "name_cn": KEY_NAMES_CN[0],
+                    "hit": 0.0, "normalized": 0.0, "margin": 0.0,
+                    "confidence": "empty", "auto": True, "mode": "auto"},
+            "grid_ok": True,
+        }
 
     # 旋律声部 = 每个起始点的最高音。移调量和黑键方向都只由它决定。
     by_onset: Dict[int, List[int]] = {}
@@ -961,6 +1015,25 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         key_info = dict(detected)
         key_info["mode"] = "auto"
         transpose = transpose_for_key(weighted, detected["tonic"], lo, hi)
+        # ---- 音区策略
+        # pitchLevel = K 会把整台键盘抬高 K 个半音（真机截图逐键核对过），
+        # 所以发声音域恒为 [60+K, 84+K]，root 与八度都改不了。
+        # 对 K 很大的曲子（比如 B 大调 K=11），这就意味着整曲被抬高近一个八度。
+        #
+        # 这里给用户一个选择：
+        #   --register auto（默认）：保住音高，接受音区被抬高
+        #   --register c          ：放弃音高，换回 C4~C6 默认音区
+        register = str(getattr(args, "register", "auto") or "auto").lower()
+        if register in ("c", "default", "low"):
+            # 回退成「强制 C 调」：pitchLevel 写 0，移调量按自由搜索
+            key_info["tonic"] = 0
+            key_info["name"] = KEY_NAMES[0]
+            key_info["name_cn"] = KEY_NAMES_CN[0]
+            key_info["detected_tonic"] = detected["tonic"]
+            key_info["detected_name"] = detected["name"]
+            key_info["detected_name_cn"] = detected["name_cn"]
+            key_info["mode"] = "auto-register-c"
+            transpose = pick_transpose(weighted, key_pcs, lo, hi)
     else:
         # 手动指定：备用选择，强制 K
         try:

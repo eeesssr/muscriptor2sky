@@ -21,7 +21,7 @@ from muscriptor2sky.core import (
 def _args(**kw):
     base = dict(root=60, transpose="auto", grid=0.25, max_poly=0, name="t",
                 author="", arranged=None, transcribed=None, bpm=None,
-                bits_per_page=16, key="auto", encoding="utf-16",
+                bits_per_page=16, key="auto", register="auto", encoding="utf-16",
                 input="a.mid", ppq=480, note_len=0.25, virtual_notes=False)
     base.update(kw)
     return types.SimpleNamespace(**base)
@@ -127,6 +127,92 @@ def test_transpose_keeps_melody_in_range():
     inside = sum(1 for p in (84, 86, 88, 89, 91) if 60 <= p + t <= 84)
     assert inside >= 3, "t=%d 没把旋律带进音域" % t
     assert (t + 0) % 12 == 0
+
+
+def test_transpose_prefers_exact_pitch_over_fewer_folds():
+    """回归：八度选择必须以「演奏音高等于原音高」为目标，不能只看折叠数。
+
+    背景（真实用户反馈）：「Flower Dance 还是最开始定 C 调的版本好听」。
+
+    根因：旧实现按 (出界数, abs(t)) 排序。对音域窄的曲子，t=+1 与 t=-11
+    的出界数可能都是 0，于是按 abs(t) 选了 +1 —— 而 pitchLevel 会把整台
+    键盘升高 key 个半音，于是整曲被抬高一个八度，听感就是「音高全不对」。
+
+    这里构造 B 大调音阶（K=11）：t=-11 时演奏音高等于原音高，t=+1 时整体
+    高一个八度。必须选 -11。
+    """
+    b_major = [71, 73, 75, 76, 78, 80, 82]      # B4 C#5 D#5 E5 F#5 G#5 A#5
+    t = transpose_for_key([(p, 1.0) for p in b_major], 11, 60, 84)
+    assert t == -11, "应选 t=-11（音高对），实际选了 %+d" % t
+
+
+def test_transpose_prefers_complete_contour_over_exact_notes():
+    """轮廓完整优先于「个别音正好对」。
+
+    旋律 [84,86,88,89,91]（K=0），对比两个候选：
+      t=0   -> dev=[0,-12,-12,-12,-12]，1 个音对，但轮廓断了 4 处
+      t=-12 -> dev=[-12,-12,-12,-12,-12]，全部低一个八度，轮廓 100% 完整
+
+    两者「主群偏离」都是 12 半音，但 t=-12 的主群占比 100% > 80%，
+    按目标函数应选 -12。这条锁住「占比」这个次要项真的参与决策。
+    """
+    melody = [84, 86, 88, 89, 91]
+    t = transpose_for_key([(p, 1.0) for p in melody], 0, 60, 84)
+    assert t == -12, "应选 t=-12（轮廓完整），实际选了 %+d" % t
+
+
+def test_transpose_is_not_fooled_by_narrow_range():
+    """回归：音域很窄时，不能因为「出界数都是 0」就选到抬八度的解。
+
+    这是 Flower Dance 那个 bug 的最小复现：
+    B 大调音阶正好落在 C4~C6 内，t=+1 与 t=-11 出界数都是 0。
+    旧实现按 abs(t) 选了 +1，把整曲抬高一个八度。
+    """
+    b_major = [71, 73, 75, 76, 78, 80, 82]
+    t = transpose_for_key([(p, 1.0) for p in b_major], 11, 60, 84)
+    devs = []
+    for p in b_major:
+        q = p + t
+        m = 0
+        while q < 60:
+            q += 12
+            m -= 1
+        while q > 84:
+            q -= 12
+            m += 1
+        devs.append((t + 11) - 12 * m)
+    main = max(set(devs), key=devs.count)
+    assert main == 0, (
+        "t=%+d 使主群整体偏离 %+d 半音（应为 0，即演奏音高等于原音高）" % (t, main))
+
+
+def test_transpose_never_raises_whole_song_an_octave():
+    """核心不变式：若存在「演奏音高 == 原音高」的选项，就不能整体抬高八度。
+
+    演奏音高 = fold(p + t) + key，所以 dev = t + key - 12*m。
+    要求：对 K 大调音阶上的素材，t = -K 时不应有 dev 恒为 ±12 的解被选中。
+    """
+    for K in range(12):
+        scale = [(K + s) % 12 for s in [0, 2, 4, 5, 7, 9, 11]]
+        # 铺在 62~74，保证 ±K 移调后仍在 C4~C6 附近
+        pitches = sorted({pc + 60 + 12 for pc in scale} | {pc + 60 for pc in scale})
+        t = transpose_for_key([(p, 1.0) for p in pitches], K, 60, 84)
+        # 计算实际偏差（不折叠就为 0）
+        devs = []
+        for p in pitches:
+            q = p + t
+            m = 0
+            while q < 60:
+                q += 12
+                m -= 1
+            while q > 84:
+                q -= 12
+                m += 1
+            devs.append((t + K) - 12 * m)
+        main = max(set(devs), key=devs.count)
+        assert abs(main) < 12, (
+            "K=%d 选 t=%+d，主群整体偏离 %+d 半音（≥12 说明整体错了一个八度）"
+            % (K, t, main))
 
 
 def test_transpose_empty_is_zero_residue():
@@ -238,6 +324,34 @@ def test_transpose_none_overrides_key_and_is_flagged():
     assert info["transpose"] == 0
     assert info["pitch_level"] == 0, "不移调就不能声明非 C 调"
     assert info["key"]["mode"] == "none"
+
+
+def test_register_c_falls_back_to_default_octave():
+    """--register c 放弃音高，换回 C4~C6 默认音区（pitchLevel 写 0）。
+
+    背景：pitchLevel = K 会把整台键盘抬高 K 个半音，对 K=11 的曲子
+    意味着整曲高近一个八度。有些用户更在意「用默认乐器直接能弹」，
+    这个开关就是给他们用的。
+    """
+    g_scale = [67, 69, 71, 72, 74, 76, 78] * 3
+    m = _midi(g_scale)
+    _, auto_info = midi_to_sky(m, _args())
+    assert auto_info["pitch_level"] == 7
+
+    _, reg_info = midi_to_sky(m, _args(register="c"))
+    assert reg_info["pitch_level"] == 0, "--register c 必须写 pitchLevel = 0"
+    assert reg_info["key"]["mode"] == "auto-register-c"
+    # 仍要记录检测结果，方便用户知道工具本来判成什么
+    assert reg_info["key"]["detected_tonic"] == 7
+    assert reg_info["key"]["detected_name"] == "G"
+
+
+def test_register_default_is_auto():
+    """默认必须是 auto（保音高），不能悄悄变成 C 调。"""
+    g_scale = [67, 69, 71, 72, 74, 76, 78] * 3
+    _, info = midi_to_sky(_midi(g_scale), _args())
+    assert info["key"]["mode"] == "auto"
+    assert info["pitch_level"] == 7
 
 
 def test_key_names_table():

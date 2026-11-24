@@ -95,8 +95,22 @@ def test_grid_safe_bpm_keeps_good_values():
 
 
 def test_beat_unit_ms_is_integer():
+    """beat_unit_ms 必须返回 int —— 返回 float 会让时间戳变成浮点毫秒。
+
+    只断言 == 500 抓不到这个 bug（500.0 == 500 为真），
+    所以这里显式检查类型：SkyStudio 的 time 字段必须是整数毫秒。
+    """
     assert beat_unit_ms(120) == 500
     assert beat_unit_ms(300) == 200
+    for bpm in (60, 100, 120, 137, 200, 300):
+        v = beat_unit_ms(bpm)
+        assert isinstance(v, int), "beat_unit_ms(%s) 返回 %r（应为 int）" % (bpm, v)
+
+
+def test_beat_unit_ms_never_returns_zero():
+    """极快 bpm 下不能退化成 0，否则所有时间戳都会是 0。"""
+    for bpm in (1000, 5000, 60000):
+        assert beat_unit_ms(bpm) >= 1, "bpm=%s 得到 %r" % (bpm, beat_unit_ms(bpm))
 
 
 def test_gcd_equals_cell_at_awkward_bpm(tmp_path):

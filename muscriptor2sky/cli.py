@@ -35,6 +35,11 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--bpm", type=float, default=None, help="bpm 字段（默认取 MIDI 速度）")
     ap.add_argument("--bits-per-page", type=int, default=16, help="bitsPerPage 字段，默认 16")
     ap.add_argument(
+        "--register", default="auto",
+        help="音区策略：auto 尽量贴近原曲音高（默认）| c 强制落在 C4~C6"
+             "（用默认乐器就能弹，但音高会整体平移）",
+    )
+    ap.add_argument(
         "--key", default="auto",
         help="定调：auto 自动识别原曲大调（默认）| c 强制 C 调（音高会被移调）"
              "| 0-11 手动指定大调（备用）。也可写 --pitch-level 作为别名。",
@@ -141,6 +146,17 @@ def main(argv=None) -> int:
             )
         else:
             print("定调: C 大调形状（--transpose none，保持原调不移调）")
+    elif mode == "auto-register-c":
+        print(
+            "定调: C 大调（pitchLevel = 0，--register c）"
+            "  [自动识别为 %s，但按你的要求落在默认音区]"
+            % ki.get("detected_name_cn") or ki.get("detected_name", "?")
+        )
+        if t:
+            print(
+                "      整曲被移调 %+d 半音以落进 C4~C6 —— 音高与原曲不同，"
+                "但用默认 C 调乐器就能弹" % t
+            )
     elif mode == "c":
         if t:
             print(
