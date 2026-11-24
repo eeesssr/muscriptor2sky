@@ -228,6 +228,18 @@ def test_detect_key_is_deterministic():
     assert a["tied"] == b["tied"]
 
 
+def test_transpose_none_overrides_key_and_is_flagged():
+    """--transpose none 与 --key N 互斥：必须按不移调处理，并标记冲突。
+
+    否则 pitchLevel 会写成 N，演奏音高比原曲高出 N 个半音。
+    """
+    m = _midi([67, 69, 71, 72, 74, 76, 78] * 3)
+    _, info = midi_to_sky(m, _args(key="7", transpose="none"))
+    assert info["transpose"] == 0
+    assert info["pitch_level"] == 0, "不移调就不能声明非 C 调"
+    assert info["key"]["mode"] == "none"
+
+
 def test_key_names_table():
     assert len(KEY_NAMES) == 12
     assert KEY_NAMES[0] == "C" and KEY_NAMES[7] == "G"

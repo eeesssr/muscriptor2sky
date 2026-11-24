@@ -54,7 +54,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--root", type=int, default=60, help="最低键 MIDI 音高，默认 60=C4")
     ap.add_argument(
         "--transpose", default="auto",
-        help="auto 自动移调到 C 大调 | none 保持原调（默认 auto）",
+        help="auto 由 --key 决定移调（默认）| none 一个半音都不挪，"
+             "此时 pitchLevel 固定写 0",
     )
     ap.add_argument("--grid", type=float, default=0.25, help="量化网格（拍），0 关闭，默认 0.25")
     ap.add_argument("--max-poly", type=int, default=0, help="同时发音上限，0=不限，默认 0")
@@ -129,7 +130,17 @@ def main(argv=None) -> int:
     t = info.get("transpose", 0)
 
     if mode == "none":
-        print("定调: C 大调形状（--transpose none，保持原调不移调）")
+        # --transpose none 与 --key N 是互斥的：不移调就只能声明 C 调，
+        # 否则演奏音高会比原曲高出 K 个半音。这里显式提示，避免用户
+        # 以为自己指定的调生效了。
+        want = str(getattr(args, "key", "") or "")
+        if want.lower() not in ("", "auto", "none"):
+            print(
+                "定调: C 大调形状 [注意] --transpose none 与 --key %s 冲突，"
+                "已按不移调处理（pitchLevel 固定写 0）" % want
+            )
+        else:
+            print("定调: C 大调形状（--transpose none，保持原调不移调）")
     elif mode == "c":
         if t:
             print(
