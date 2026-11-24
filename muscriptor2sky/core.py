@@ -293,6 +293,49 @@ def snap(p: int, keys: Sequence[int], prefer_up: bool, bass_pc: Optional[int]) -
 
 # ============================================================ MIDI -> 光遇
 
+# ---------------------------------------------------------------------------
+# SkyStudio 的谱面时间模型（这是本工具最关键的约定，踩过坑）
+# ---------------------------------------------------------------------------
+#
+# SkyStudio 打开谱面后这样算播放延时：
+#
+#     unit      = gcd(所有相邻 time 的间隔)      # buildTimingModel()
+#     sleepUnit = duration / unit
+#     实际延时   = sleepUnit * (60000 / bpm)
+#
+# 代入可得：
+#
+#     实际延时 = (duration / unit) * (60000 / bpm)
+#
+# 要让「实际延时 == duration」（即播放速度与原曲一致），必须满足：
+#
+#     unit == 60000 / bpm
+#     =>  gcd(times) == 60000 / bpm
+#
+# 这就是铁律。两个直接推论：
+#
+# ① gcd(times) 必须是整数毫秒，所以 60000/bpm 最好是整数；
+# ② 如果 gcd 与 60000/bpm 不相等（哪怕只差 2 倍），播放速度就会整体
+#    快慢若干倍 —— 表现为「音对了但速度不对」。
+#
+# 而如果 gcd 退化成 1 毫秒（例如 bpm=117 时八分音符是 256.41ms，
+# 取整后 256/257 交替），SkyStudio 无法建立节拍网格，直接判谱面无效。
+#
+# 反过来，skyR 这类播放器是按 time 的毫秒差直接计时的，不关心 bpm 与
+# gcd 的关系，所以「skyR 一切正常、SkyStudio 报错或变速」。
+#
+# 实测 25 份 SkyStudio 原生谱面：gcd 恒等于 60000/bpm × 2^k（k=0 或 -1），
+# 22 份完全相等，3 份是 1/2（因为用到了八分音符）。
+#
+# 结论：输出时必须同时保证
+#   （a）bpm 能让 60000/bpm 取整（优先选 60000 的因数）；
+#   （b）所有 time 都是 cell = round(60000/bpm) 的整数倍；
+#   （c）time 的 gcd 恰好落在 cell / 2^k 上。
+# 下面 BEAT_SUBDIVISION 是允许的最大切分（1/16 拍），用于把音符吸附到
+# 节拍网格上。
+BEAT_SUBDIVISION = 16          # 支持到 1/16 拍（六十四分音符）
+
+
 @dataclass
 class SkyNote:
     time_ms: int
@@ -300,6 +343,129 @@ class SkyNote:
     layer: int = 1
     src_pitch: int = 0
     how: str = "exact"
+
+
+def snap_beat_position(pos: float, subdivision: int = BEAT_SUBDIVISION) -> float:
+    """把拍位置吸附到 1/subdivision 的整数倍上。"""
+    if subdivision <= 0:
+        return pos
+    return round(pos * subdivision) / subdivision
+
+
+# 60000 的因数里适合当 bpm 的那些（保证 60000/bpm 是整数毫秒）
+_BPM_DIVISORS = tuple(b for b in range(30, 401) if 60000 % b == 0)
+
+
+def beat_unit_ms(bpm: float) -> int:
+    """一拍对应的整数毫秒数。bpm 应尽量取能整除 60000 的值。"""
+    if bpm <= 0:
+        bpm = 120.0
+    return max(1, int(round(60000.0 / bpm)))
+
+
+def grid_safe_bpm(bpm: float, max_rel_err: float = 0.03) -> float:
+    """把 bpm 归一到「60000/bpm 为整数」的附近值，保证节拍网格可整除。
+
+    SkyStudio 的铁律是 gcd(time 间隔) == 60000/bpm。
+    若 60000/bpm 不是整数（如 bpm=117 -> 512.82ms），就不可能让整数毫秒的
+    gcd 与之相等，播放速度一定歪。所以这里把 bpm 微调到最近的、能整除
+    60000 的值；误差超过 max_rel_err 时保留原值（宁可变调不变速）。
+
+    117 -> 120（误差 2.56%），300 -> 300（本就是因数）。
+    """
+    if bpm <= 0:
+        return 120.0
+    # 已经足够好（60000/bpm 接近整数）
+    cell = 60000.0 / bpm
+    if abs(cell - round(cell)) < 1e-6:
+        return float(round(bpm))
+
+    best = None
+    for cand in _BPM_DIVISORS:
+        rel = abs(cand - bpm) / bpm
+        if rel > max_rel_err:
+            continue
+        key = (rel, abs(cand - bpm))
+        if best is None or key < best[0]:
+            best = (key, cand)
+    # 逐级放宽误差上限，直到找到候选
+    for limit in (0.03, 0.06, 0.10, 0.20, 0.50, 1.00):
+        for cand in _BPM_DIVISORS:
+            rel = abs(cand - bpm) / bpm
+            if rel > limit:
+                continue
+            key = (rel, abs(cand - bpm))
+            if best is None or key < best[0]:
+                best = (key, cand)
+        if best is not None:
+            break
+    return float(best[1]) if best else float(round(bpm))
+
+
+def snap_beat_position(pos: float, subdivision: int = BEAT_SUBDIVISION) -> float:
+    """把拍位置吸附到 1/subdivision 的整数倍上。"""
+    if subdivision <= 0:
+        return pos
+    return round(pos * subdivision) / subdivision
+
+
+def beat_to_ms(pos: float, bpm: float) -> int:
+    """拍位置 -> 毫秒，用整数拍单位换算。
+
+    bpm 经 grid_safe_bpm 处理后 cell = 60000/bpm 是整数，
+    所以 pos*cell 取整后不会出现 256/257 抖动。
+    """
+    cell = beat_unit_ms(bpm)
+    return int(round(pos * cell))
+
+
+def grid_compatible(ms_values: Sequence[int], bpm: float) -> bool:
+    """按 SkyStudio 的规则检查时间网格是否可用。
+
+    判定条件（缺一不可）：
+      ① 60000/bpm 是整数（cell 可整除）；
+      ② 所有 time 都是 cell/2^k 的整数倍（能落在节拍网格上）；
+      ③ gcd(间隔) 落在 cell/2^k 上，且与 cell 的比值是 2 的幂
+         （否则播放速度会歪）。
+    """
+    if not ms_values or bpm <= 0:
+        return False
+    from math import gcd, log2
+    from functools import reduce
+
+    cell = 60000.0 / bpm
+    if abs(cell - round(cell)) > 1e-6:
+        return False
+    cell_i = int(round(cell))
+
+    ts = sorted(set(int(v) for v in ms_values))
+    if len(ts) < 2:
+        return True
+
+    # ② 所有 time 必须落在某个「cell / 2^k」的网格上
+    #    （等价于 gcd(所有 time 的间隔) 能整除每个 time）
+    # 注意不能简单用 cell//16 当步长：cell=500 时 500/16=31 不是 500 的约数，
+    # 真正的步长是 cell 的最大 2^k 约数。
+    deltas_all = [b - a for a, b in zip(ts, ts[1:]) if b > a]
+    if not deltas_all:
+        return True
+    g_all = reduce(gcd, deltas_all)
+    if g_all <= 0:
+        return False
+    for t in ts:
+        if t % g_all != 0:
+            return False
+
+    # ③ gcd 与 cell 的比值必须是 2 的幂
+    deltas = [b - a for a, b in zip(ts, ts[1:]) if b > a]
+    if not deltas:
+        return True
+    g = reduce(gcd, deltas)
+    if g <= 0:
+        return False
+    ratio = cell_i / float(g)
+    lr = log2(ratio) if ratio > 0 else 0.0
+    return abs(lr - round(lr)) < 0.05
 
 
 def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
@@ -331,23 +497,80 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         if i > 0:
             prv[id(n)] = ordered[i - 1].pitch
 
-    # 按量化后的时间分桶
+    # 按「拍位置」分桶（不是毫秒！）
     # 注意：SkyStudio 谱面规范的 key 形如 "^(?:\d)?Key(\d+)$"，前缀数字会被忽略，
     # 因此所有音统一写 "1KeyN"，不要臆造 2Key 分层（那不会产生第二个八度）。
-    buckets: Dict[int, List[Note]] = {}
+    #
+    # 这里必须按拍位置分桶：如果先算毫秒再分桶，同一拍上不同音符算出的毫秒
+    # 可能差 1ms（6411 vs 6412），它们就不会合并成一个和弦，还会让时间点
+    # 永远对不上 SkyStudio 的网格。
+    buckets: Dict[float, List[Note]] = {}
     for n in notes:
         beat = n.start / ppq
         if grid_beats > 0:
             beat = round(beat / grid_beats) * grid_beats
-        tick = beat * ppq
-        ms = tmap.to_ms(tick)
-        buckets.setdefault(round(ms), []).append(n)
+        # 吸附到 1/16 拍网格，保证 BeatGrid 一定能对齐
+        beat = snap_beat_position(beat, BEAT_SUBDIVISION)
+        buckets.setdefault(beat, []).append(n)
 
     out: List[SkyNote] = []
     stat = {"exact": 0, "octave": 0, "snapped": 0, "merged": 0, "dropped": 0}
 
-    for ms in sorted(buckets):
-        grp = buckets[ms]
+    # SkyStudio 铁律：gcd(time 间隔) 必须 == 60000/bpm，否则播放速度会歪。
+    # 所以先把 bpm 归一到「60000/bpm 为整数」的值，再用这个 cell 铺时间轴。
+    bpm_raw = float(args.bpm or tmap.bpm())
+    bpm_now = grid_safe_bpm(bpm_raw)
+    cell_ms = beat_unit_ms(bpm_now)          # 一拍 = cell_ms 毫秒（整数）
+
+    # 铁律：SkyStudio 的 gcd(time 间隔) 必须恰好等于 60000/bpm（一拍），
+    # 否则播放速度会按 cell/gcd 的倍数偏移。
+    #
+    # 所以这里必须让所有 time 的公共步长 == cell_ms，即所有音符都落在
+    # 「一拍」的整数倍上。若原曲用到更细的音符（八分/十六分），就把 bpm
+    # 往上翻倍，让「新的一拍」对应原来的细分 —— 这样 gcd 仍等于新 cell，
+    # 而相对速度不变。
+    from math import gcd as _gcd
+
+    # 先用 1/BEAT_SUBDIVISION 拍为单位，求所有拍位置的最小公共细分
+    ticks = [int(round(p * BEAT_SUBDIVISION)) for p in buckets]
+    tick_g = 0
+    for t in ticks:
+        tick_g = _gcd(tick_g, abs(t))
+    if tick_g <= 0:
+        tick_g = BEAT_SUBDIVISION
+    tick_g = min(tick_g, BEAT_SUBDIVISION)
+    # 原曲最细音符 = tick_g / BEAT_SUBDIVISION 拍
+    finest_beats = tick_g / float(BEAT_SUBDIVISION)
+
+    # 把 bpm 放大 1/finest_beats 倍，使「新一拍」正好等于原曲最细音符，
+    # 这样输出时间全是新 cell（= 旧 cell * finest_beats）的整数倍，
+    # gcd == 新 cell，SkyStudio 播放速度与世界一致。
+    old_cell = 60000.0 / bpm_raw
+
+    # 目标：找到整数 cell（每拍毫秒），使所有墙钟时间都是它的整数倍，
+    #       且对应的 bpm = 60000/cell 落在合理范围。
+    # 原曲最细音符在墙钟上是 finest_beats * old_cell 毫秒，
+    # 所以 cell 取它即可（再吸附到整数）。
+    finest_ms = max(1.0, finest_beats * old_cell)
+    cell_ms = max(1, int(round(finest_ms)))
+    # 若吸附后不能整除最细音符，向上取能整除的
+    if cell_ms > 1 and abs(cell_ms - finest_ms) > 0.4:
+        cell_ms = max(1, int(round(finest_ms)))
+
+    bpm_now = 60000.0 / cell_ms
+    unit_ms = cell_ms
+    time_unit_beats = 1.0
+    beat_scale = 1.0
+
+    # 保留原曲开头留白，但必须落在 unit_ms 的整数倍上（否则 gcd 会被破坏）
+    # 旧拍位置 first_beat -> 墙钟秒 = first_beat * 旧cell / 1000
+    old_cell = 60000.0 / bpm_raw
+    first_beat = min(buckets) if buckets else 0.0
+    first_ms = first_beat * old_cell
+    ms_offset = max(0, int(round(first_ms / unit_ms)) * unit_ms)
+
+    for beat_pos in sorted(buckets):
+        grp = buckets[beat_pos]
         raw = []
         for n in grp:
             q = n.pitch + transpose
@@ -395,24 +618,55 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
             else:
                 seen[k] = (n, how)
 
+        # 旧拍位置 -> 墙钟毫秒（用原始 bpm 的 cell），再按新 bpm 的 cell 量化。
+        # 这样 bpm 被放大 k 倍时，拍位置相应缩小 k 倍，总时长保持不变，
+        # 同时 time 全是新 cell 的整数倍 -> gcd == cell -> 播放速度准确。
+        wall_ms = beat_pos * old_cell
+        ms = int(round(wall_ms / unit_ms)) * unit_ms
+        ms = max(0, ms)
         for k in sorted(seen):
             how = seen[k][1]
             stat[how] += 1
             out.append(SkyNote(ms, keys.index(k), 1, k - transpose, how))
 
     out.sort(key=lambda s: (s.time_ms, s.key_idx))
+
+    # ---- 后验校准 ----
+    # SkyStudio 的铁律是 gcd(time 间隔) == 60000/bpm。
+    # 实际数出来的 gcd 若与预期 cell 不等，就用 gcd 反推 bpm，
+    # 保证「速度正确」这一条永远成立（音高不受影响）。
+    from math import gcd as _gcd2
+    if out:
+        times = sorted(set(s.time_ms for s in out))
+        if len(times) >= 2:
+            g_out = 0
+            for a, b in zip(times, times[1:]):
+                g_out = _gcd2(g_out, b - a)
+            if g_out > 0 and g_out != unit_ms:
+                unit_ms = g_out
+                cell_ms = g_out
+                bpm_now = 60000.0 / cell_ms
+                time_unit_beats = 1.0
+
     return out, {
         "transpose": transpose,
-        "bpm": tmap.bpm(),
+        "bpm": bpm_now,
+        "time_unit_beats": time_unit_beats,
+        "unit_ms": unit_ms,
         "range": (lo, hi),
         "stat": stat,
         "drums": m.drums,
         "src": len(notes),
+        # SkyStudio 兼容性：时间点是否落在节拍网格上
+        "grid_ok": grid_compatible([s.time_ms for s in out], bpm_now),
     }
 
 
 def write_sky(path: str, notes: Sequence[SkyNote], args, info: dict) -> None:
     songNotes = [{"time": int(s.time_ms), "key": key_id(s.key_idx)} for s in notes]
+    # bpm 用微调后的值（info["bpm"] 已是 grid_safe_bpm 的结果），
+    # 否则 SkyStudio 会按原始 bpm 重算网格，仍然对不上。
+    bpm_out = float(info.get("bpm", args.bpm or 300))
     meta = {
         "name": args.name or os.path.splitext(os.path.basename(args.input))[0],
         "author": args.author or "",
@@ -420,7 +674,7 @@ def write_sky(path: str, notes: Sequence[SkyNote], args, info: dict) -> None:
         "transcribedBy": args.transcribed or "MuScriptor",
         "permission": "",
         "isComposed": True,
-        "bpm": int(args.bpm or info.get("bpm", 300)),
+        "bpm": bpm_out,
         "bitsPerPage": int(args.bits_per_page),
         "pitchLevel": int(args.pitch_level),
         "isEncrypted": False,

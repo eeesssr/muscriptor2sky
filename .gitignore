@@ -24,6 +24,9 @@ htmlcov/
 *_15key.txt
 out.txt
 
+# 本地说明（不随仓库发布）
+推送说明.md
+
 # 编辑器
 .vscode/
 .idea/

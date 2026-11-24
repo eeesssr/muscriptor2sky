@@ -103,6 +103,16 @@ def main(argv=None) -> int:
         % (st["exact"], st["octave"], st["snapped"], st["merged"], st["dropped"])
     )
     print("输出音符: %d" % len(notes))
+    tu = info.get("time_unit_beats", 1.0) or 1.0
+    unit_txt = "1" if abs(tu - 1.0) < 1e-9 else "1/%d" % round(1 / tu)
+    print(
+        "时间网格: 单位 %s 拍 = %d ms  %s"
+        % (
+            unit_txt,
+            info.get("unit_ms", 0),
+            "[SkyStudio 兼容]" if info.get("grid_ok") else "[警告] 可能不被 SkyStudio 接受",
+        )
+    )
 
     if not args.no_preview:
         print("-" * 78)
@@ -132,6 +142,9 @@ def main(argv=None) -> int:
         if bad:
             print("[格式自检] 越界键位: %s" % bad)
             return 2
+        if not info.get("grid_ok", True):
+            print("[格式自检] [警告] 时间网格不是音乐单位，SkyStudio 可能拒绝导入")
+            print("[格式自检] 建议：加 --grid 0.25 重试，或用 --bpm 指定更规整的速度")
         print("[格式自检] 通过，可直接被 APP 播放")
     return 0
 
