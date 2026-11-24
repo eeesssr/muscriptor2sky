@@ -122,7 +122,7 @@ def main(argv=None) -> int:
             % (pl, pl)
         )
     else:
-        print("定调: pitchLevel = 0（游戏默认 C 调，无需额外兑换）")
+        print("定调: pitchLevel = 0（C 调，谱面按 15 键白键书写）")
     print("[可弹性] 旋律可用 15 键弹奏的比例 %.1f%%" % info.get("playability", 0.0))
     tu = info.get("time_unit_beats", 1.0) or 1.0
     unit_txt = "1" if abs(tu - 1.0) < 1e-9 else "1/%d" % round(1 / tu)
