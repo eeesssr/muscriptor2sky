@@ -34,7 +34,14 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--transcribed", default=None, help="transcribedBy 字段")
     ap.add_argument("--bpm", type=float, default=None, help="bpm 字段（默认取 MIDI 速度）")
     ap.add_argument("--bits-per-page", type=int, default=16, help="bitsPerPage 字段，默认 16")
-    ap.add_argument("--pitch-level", type=int, default=0, help="pitchLevel 字段，默认 0")
+    ap.add_argument(
+        "--pitch-level", type=int, default=0,
+        help="定调（半音数 0-11）。0=C 调（游戏默认，推荐）。",
+    )
+    ap.add_argument(
+        "--virtual-notes", action="store_true",
+        help="[实验性] 用两键「凑」差音来代替弹不出的黑键，见 docs/虚音说明.md",
+    )
     ap.add_argument(
         "--encoding", default="utf-16",
         help="输出编码：utf-16（默认，SkyStudio 标准）| utf-8",
@@ -103,6 +110,20 @@ def main(argv=None) -> int:
         % (st["exact"], st["octave"], st["snapped"], st["merged"], st["dropped"])
     )
     print("输出音符: %d" % len(notes))
+    if getattr(args, "virtual_notes", False):
+        nv = st.get("virtual", 0)
+        print(
+            "[虚音] 为 %d 个黑键音补了两键组合（实验性，差音实际会被基音掩蔽）" % nv
+        )
+    pl = info.get("pitch_level", 0)
+    if pl:
+        print(
+            "定调: pitchLevel = %d（比 C 调高 %d 个半音；游戏内需把乐器调到该调才能对上）"
+            % (pl, pl)
+        )
+    else:
+        print("定调: pitchLevel = 0（游戏默认 C 调，无需额外兑换）")
+    print("[可弹性] 旋律可用 15 键弹奏的比例 %.1f%%" % info.get("playability", 0.0))
     tu = info.get("time_unit_beats", 1.0) or 1.0
     unit_txt = "1" if abs(tu - 1.0) < 1e-9 else "1/%d" % round(1 / tu)
     print(
