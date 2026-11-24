@@ -15,6 +15,7 @@ from .core import (
     grid_safe_bpm,
     key_id,
     midi_to_sky,
+    pick_snap_directions,
     read_midi,
     read_sky,
     skyr_parse,
@@ -22,7 +23,7 @@ from .core import (
     write_sky,
 )
 
-__version__ = "1.3.0"
+__version__ = "1.3.1"
 
 __all__ = [
     "BEAT_SUBDIVISION",
@@ -39,6 +40,7 @@ __all__ = [
     "grid_safe_bpm",
     "key_id",
     "midi_to_sky",
+    "pick_snap_directions",
     "read_midi",
     "read_sky",
     "skyr_parse",
