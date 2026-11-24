@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "muscriptor2sky"
+version = "1.0.0"
+description = "把 MIDI 转换成光遇（Sky: Children of the Light）15 键琴谱 txt，兼容 SkyStudio"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "eeesssr" }]
+keywords = [
+    "sky-children-of-the-light",
+    "skystudio",
+    "sky-music",
+    "sky-sheet",
+    "music-transcription",
+    "midi",
+    "midi-to-sheet",
+    "muscriptor",
+    "mt3",
+    "amt",
+    "kalimba",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.urls]
+Homepage = "https://github.com/eeesssr/muscriptor2sky"
+Repository = "https://github.com/eeesssr/muscriptor2sky"
+Issues = "https://github.com/eeesssr/muscriptor2sky/issues"
+
+[project.scripts]
+muscriptor2sky = "muscriptor2sky.cli:main"
+sky2midi = "muscriptor2sky.cli:main"
+
+[tool.setuptools]
+packages = ["muscriptor2sky"]
+
+[tool.setuptools.package-data]
+muscriptor2sky = ["py.typed"]

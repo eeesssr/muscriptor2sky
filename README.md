@@ -1,0 +1,295 @@
+# muscriptor2sky
+
+**MIDI → 光遇 15 键琴谱** 转换器，输出 **SkyStudio 兼容**的 `.txt` 格式，也能反向把琴谱还原成 MIDI。
+
+接受任何标准 MIDI：DAW 导出的工程、手写谱、[MuScriptor](https://huggingface.co/MuScriptor/muscriptor-small)/MT3 等音频转谱模型的输出都可以。生成的谱子能被 SkyStudio 及一系列兼容它的光遇弹琴工具直接读取播放。
+
+- **兼容 SkyStudio**：按 SkyStudio 的琴谱规范输出（UTF-16LE + BOM 的 JSON），这是光遇谱面的事实标准
+- **零依赖**：只用 Python 标准库，不需要 `pip install` 任何东西
+- **自动移调**：把原曲移到 C 大调，让最多音符正好落在 15 个白键上
+- **黑键智能吸附**：就近吸附，平局时按和声与旋律走向决定
+- **自带校验**：`--verify` 按 SkyStudio 格式规范回读自检，确保 APP 能播
+- **双向转换**：琴谱也能转回 MIDI，方便核对别人的谱子
+
+---
+
+## 安装
+
+需要 **Python 3.8+**。克隆后即可使用，无需安装依赖：
+
+```bash
+git clone https://github.com/eeesssr/muscriptor2sky.git
+cd muscriptor2sky
+```
+
+也可以装成命令行工具：
+
+```bash
+pip install -e .
+muscriptor2sky --help
+```
+
+---
+
+## 快速开始
+
+### 命令行
+
+```bash
+# 最简：同目录生成同名 .txt
+python -m muscriptor2sky song.mid
+
+# 推荐：带曲名作者 + 自检
+python -m muscriptor2sky song.mid -n "晴天" -a "周杰伦" --verify
+```
+
+### Windows 拖拽
+
+把 `.mid` 文件拖到 `转换.bat` 上松手即可。
+
+### Python API
+
+```python
+import types
+from muscriptor2sky.core import read_midi, midi_to_sky, write_sky
+
+args = types.SimpleNamespace(
+    root=60, transpose="auto", grid=0.25, max_poly=0,
+    name="晴天", author="", arranged=None, transcribed=None,
+    bpm=None, bits_per_page=16, pitch_level=0, encoding="utf-16",
+)
+
+m = read_midi("song.mid")
+notes, info = midi_to_sky(m, args)
+write_sky("song.txt", notes, args, info)
+print(info["stat"])   # {'exact': .., 'octave': .., 'snapped': .., 'merged': .., 'dropped': ..}
+```
+
+---
+
+## 15 键与简谱对照
+
+光遇的键名是 **0 基**编号，这一点最容易搞错：
+
+| 文件里的 key | 键位 | 简谱 |
+|---|---|---|
+| `1Key0` … `1Key6` | 1–7 | `1 2 3 4 5 6 7` |
+| `1Key7` … `1Key13` | 8–14 | `1' 2' 3' 4' 5' 6' 7'` |
+| `1Key14` | 15 | `1''` |
+
+对应 MIDI 音高：C4(60) D4 E4 F4 G4 A4 B4 · C5 D5 E5 F5 G5 A5 B5 · C6(84)。
+
+> **键名约定依据 SkyStudio 谱面规范**：key 的数字部分是 **0 基**键位索引，
+> 没有 `+1` 偏移，所以第一键是 `1Key0` 而不是 `1Key1`。
+> 形如 `1Key5` / `2Key5` 的前缀数字不参与音高计算，两种写法指向同一个键。
+
+---
+
+## 输出字段解读
+
+运行后打印的统计：
+
+```
+输入: song.mid
+音域: 15 键 C 大调 C(60) ~ C(84)
+移调: -2 半音   bpm: 120   源音符: 34   鼓(丢弃): 16
+映射: 精确 14 / 八度折叠 12 / 半音吸附 6 / 同键合并 2 / 超复音丢弃 0
+输出音符: 32
+[格式自检] 编码 UTF-16LE(BOM) | 音符 32 | 事件 14 | 最大复音 5 | 时长 7.5s
+[格式自检] 通过，可直接被 APP 播放
+```
+
+| 字段 | 含义 | 怎样算好 |
+|---|---|---|
+| 移调 | 整体升降半音数 | 正常 −6~+6，太大说明原曲调性远 |
+| 精确 | 音高正好落在白键 | 越高越好 |
+| 八度折叠 | 超音域，移动了八度 | 少量正常 |
+| 半音吸附 | 黑键吸到最近白键 | 越少越好，多了旋律会走样 |
+| 同键合并 | 两音抢同一键，丢一个 | 少量正常 |
+| 最大复音 | 同时按几个键 | **>4 手弹不了** |
+
+---
+
+## 参数
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `-o, --out` | 同名 .txt | 输出路径 |
+| `-n, --name` | MIDI 文件名 | 曲名 |
+| `-a, --author` | 空 | 作者 |
+| `--arranged` / `--transcribed` | 空 | arrangedBy / transcribedBy 字段 |
+| `--bpm` | MIDI 速度 | 只影响 SkyStudio 编辑器格子显示，不影响播放 |
+| `--bits-per-page` | 16 | SkyStudio 分页 |
+| `--pitch-level` | 0 | 谱面八度显示偏移 |
+| `--encoding` | `utf-16` | `utf-16`（标准）或 `utf-8` |
+| `--root` | 60 (C4) | 15 键里最低键的 MIDI 音高 |
+| `--transpose` | `auto` | `auto` 自动移调 / `none` 保持原调 |
+| `--grid` | 0.25 | 量化网格（拍），0 关闭 |
+| `--max-poly` | 0 | 同时发音上限，0 不限 |
+| `--verify` | 关 | 按 SkyStudio 谱面规范回读自检 |
+| `--no-preview` | 关 | 不打印简谱预览 |
+
+### 常用组合
+
+```bash
+# 手指弹不动的密集钢琴曲 → 限制复音
+python -m muscriptor2sky song.mid --max-poly 3
+
+# 只要主旋律，最容易弹
+python -m muscriptor2sky song.mid --max-poly 1
+
+# 有十六分音符，需要更细网格
+python -m muscriptor2sky song.mid --grid 0.125
+
+# 完全保留原始时间，不量化
+python -m muscriptor2sky song.mid --grid 0
+
+# 保持原调不移调
+python -m muscriptor2sky song.mid --transpose none
+
+# 换音域（从 A3 开始，共 15 键）
+python -m muscriptor2sky song.mid --root 57
+```
+
+---
+
+## 反向转换：琴谱 → MIDI
+
+用来核对别人的谱子，或把琴谱转成能听的 MIDI：
+
+```bash
+python -m muscriptor2sky "晴天.txt" -o 晴天.mid
+```
+
+---
+
+## 完整工作流：音频 → 琴谱
+
+```bash
+# 1) 用 MuScriptor 把音频转成 MIDI
+#    关键：用 --instruments 只要钢琴轨，比事后删音干净得多
+muscriptor transcribe --model medium --instruments "acoustic_piano" audio.wav -o piano.mid
+
+# 2) 转成光遇琴谱
+python -m muscriptor2sky piano.mid -n "曲名" -a "作者" --verify
+
+# 3) 把 .txt 放到手机
+#    Android: /sdcard/skyMusicAuto/   或用 APP 的文件选择器导入
+```
+
+MuScriptor 默认按**音色分组**分轨（每个 detected program 一轨，鼓单独一轨在 channel 9），
+并不按"旋律/和弦/贝斯"分声部。转谱阶段用 `--instruments` 限定是最省事的做法。
+
+---
+
+## 批量转换
+
+```bash
+# PowerShell
+Get-ChildItem *.mid | ForEach-Object {
+    python -m muscriptor2sky $_.FullName --verify --no-preview
+}
+
+# bash
+for f in *.mid; do python -m muscriptor2sky "$f" --verify --no-preview; done
+```
+
+---
+
+## 工作原理
+
+```
+读取 MIDI（丢弃 channel 9 打击乐）
+  ↓
+选移调量（按时值加权，最大化落白键比例，主音/五度加权）
+  ↓
+超音域的音做八度折叠（只改八度，不改音名）
+  ↓
+黑键吸附最近白键（平局按和声协和度 → 旋律走向决定）
+  ↓
+同时刻同键合并（保留时值更长的）
+  ↓
+按 --grid 量化时间
+  ↓
+写 UTF-16LE+BOM 的 JSON
+```
+
+### 输出格式
+
+```json
+[{
+  "name": "晴天",
+  "author": "周杰伦",
+  "arrangedBy": "",
+  "transcribedBy": "MuScriptor",
+  "permission": "",
+  "isComposed": true,
+  "bpm": 300,
+  "bitsPerPage": 16,
+  "pitchLevel": 0,
+  "isEncrypted": false,
+  "songNotes": [
+    {"time": 400, "key": "1Key5"},
+    {"time": 800, "key": "1Key7"}
+  ]
+}]
+```
+
+- 文件编码：**UTF-16LE + BOM**（SkyStudio 谱面规范，播放器靠 BOM 判定编码）
+- `time` 是**毫秒绝对时间戳**，播放器用相邻音符差值作为延时
+- 同一 `time` 出现多个 key = 和弦同时按下
+
+---
+
+## 开发
+
+```bash
+# 跑测试（零依赖运行器，不需要 pytest）
+python run_tests.py
+
+# 或者用 pytest
+pip install pytest && pytest
+```
+
+测试覆盖：音高映射、键位 0 基约定、MIDI 解析（含 program change 单字节陷阱、
+鼓轨过滤）、黑键吸附、复音限制、同键合并、UTF-16 编码、往返一致性。
+
+---
+
+## 常见问题
+
+**Q: 播放出来整体低了一个音级？**
+键名是 **0 基**，第一键是 `1Key0`。如果你手写琴谱用了 `1Key1` 开头，就会整体偏移。
+
+**Q: APP 显示"乐谱格式不受支持"？**
+几乎都是编码问题。用 `--verify` 让工具自检，不要手动改 txt 编码。
+
+**Q: 旋律跑调明显？**
+看输出里的"半音吸附"数量。多的话说明原曲调性离 C 大调太远，
+可以试 `--root 57` 换音域，或 `--transpose none` 保持原调。
+
+**Q: 和弦太密弹不了？**
+`--max-poly 3` 或 `--max-poly 1`。
+
+**Q: 中文乱码（Windows）？**
+PowerShell 里先执行 `$env:PYTHONIOENCODING='utf-8'`。
+`转换.bat` 已处理编码，直接用即可。
+
+**Q: 为什么 bpm 字段和实际听起来不一样？**
+播放器按 `songNotes[].time` 的毫秒差计时，`bpm` 只用于 SkyStudio 编辑器显示格子。
+
+---
+
+## 致谢
+
+- [SkyStudio](https://play.google.com/store/apps/details?id=com.Maple.SkyStudio) — 光遇琴谱编辑器的定义者，本项目的输出格式以它的谱面规范为准
+- [MuScriptor](https://huggingface.co/MuScriptor/muscriptor-small) — Mirelo × Kyutai 的开源多乐器转谱模型，典型的上游工具
+- [MT3](https://github.com/magenta/mt3) — note event tokenization 的源头
+- [skyR](https://github.com/iKeilo/skyR) — 优秀的开源光遇弹琴实现，本项目的兼容性测试参考之一
+
+## 许可证
+
+[MIT](LICENSE)
+
+本项目只做格式转换，不附带任何乐谱。
+转谱他人作品时请自行取得授权。
