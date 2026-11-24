@@ -196,6 +196,34 @@ for f in *.mid; do python -m muscriptor2sky "$f" --verify --no-preview; done
 
 ---
 
+## 示例
+
+[`examples/flower-dance/`](examples/flower-dance/) 提供了一份完整样例：
+
+| 文件 | 说明 |
+|---|---|
+| `input.mid` | MuScriptor 输出的原始 MIDI（27 KB，多轨含打击乐） |
+| `output.txt` | 转换出的光遇琴谱（132 KB，2250 个音符） |
+| `README.md` | 转换结果说明与网格验证方法 |
+
+```bash
+python -m muscriptor2sky examples/flower-dance/input.mid \
+    -o out.txt -n "DJ OKAWARI - Flower Dance" --verify
+```
+
+可以直接用它验证工具在你机器上的行为是否符合预期：
+
+```
+移调: +1 半音   bpm: 319   源音符: 2584   鼓(丢弃): 945
+映射: 精确 1568 / 八度折叠 629 / 半音吸附 53 / 同键合并 334
+输出音符: 2250
+时间网格: 单位 1 拍 = 188 ms  [SkyStudio 兼容]
+```
+
+> 该目录仅用于验证格式转换，原曲版权归原作者所有。
+
+---
+
 ## 工作原理
 
 ```

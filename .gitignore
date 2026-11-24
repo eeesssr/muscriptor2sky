@@ -18,11 +18,13 @@ env/
 .coverage
 htmlcov/
 
-# 转换输出（避免把生成的琴谱误提交）
+# 转换输出（避免把日常生成的琴谱误提交）
 *.mid
-!test_in.mid
+# 但示例目录里的输入 MIDI 要保留（它是文档的一部分）
+!examples/**/*.mid
 *_15key.txt
 out.txt
+*_OK.txt
 
 # 本地说明（不随仓库发布）
 推送说明.md
