@@ -2,11 +2,12 @@
 chcp 65001 >nul
 setlocal
 
-REM 兼容旧入口：v1.4.0 起输出模式拆成三个 .bat
-REM   转换-C调默认.bat   pitchLevel = 0（游戏默认 C 调）  推荐
-REM   转换-定调版.bat     指定 pitchLevel 0~11
+REM 主入口：v1.5.0 起默认改为「自动定调」，保住原曲音高。
+REM
+REM   转换-自动定调.bat   自动识别原曲大调（默认，推荐）
+REM   转换-手动定调.bat   手动指定 0-11（备用）
 REM   转换-虚音版.bat     用两键凑差音（实验性）
 REM
-REM 本文件保留为「C 调默认」的别名，旧快捷方式可继续用。
+REM 本文件保留为「自动定调」的别名，旧快捷方式可继续用。
 
-call "%~dp0转换-C调默认.bat" %*
+call "%~dp0转换-自动定调.bat" %*

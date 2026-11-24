@@ -1,0 +1,19 @@
+# .bat 必须用 CRLF：cmd.exe 不认 LF 换行，会把整行当成一个命令名。
+#
+# 用 -text（不是 eol=crlf）是刻意的：eol=crlf 只在 checkout 时转换，
+# 仓库里存的仍是 LF —— 而 GitHub 的「Download raw file」直接返回仓库内容，
+# 用户单独下载单个 .bat 时又会拿到 LF 版本，双击报
+#   'xxx' is not recognized as an internal or external command
+# 用 -text 让 CRLF 原样进仓库，raw 下载和 ZIP 下载都是 CRLF。
+*.bat -text
+*.cmd -text
+
+# 其余文本统一 LF（仓库内），Windows 检出时由 core.autocrlf 决定。
+*.py    text eol=lf
+*.md    text eol=lf
+*.toml  text eol=lf
+*.yml   text eol=lf
+
+# 琴谱是 UTF-16LE，MIDI 是二进制，都不要做换行转换。
+*.txt   -text
+*.mid   binary

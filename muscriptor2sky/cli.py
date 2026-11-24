@@ -35,8 +35,13 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--bpm", type=float, default=None, help="bpm 字段（默认取 MIDI 速度）")
     ap.add_argument("--bits-per-page", type=int, default=16, help="bitsPerPage 字段，默认 16")
     ap.add_argument(
-        "--pitch-level", type=int, default=0,
-        help="定调（半音数 0-11）。0=C 调（游戏默认，推荐）。",
+        "--key", default="auto",
+        help="定调：auto 自动识别原曲大调（默认）| c 强制 C 调（音高会被移调）"
+             "| 0-11 手动指定大调（备用）。也可写 --pitch-level 作为别名。",
+    )
+    ap.add_argument(
+        "--pitch-level", dest="key", default=argparse.SUPPRESS,
+        help="--key 的别名，兼容旧脚本。",
     )
     ap.add_argument(
         "--virtual-notes", action="store_true",
@@ -115,14 +120,52 @@ def main(argv=None) -> int:
         print(
             "[虚音] 为 %d 个黑键音补了两键组合（实验性，差音实际会被基音掩蔽）" % nv
         )
-    pl = info.get("pitch_level", 0)
-    if pl:
-        print(
-            "定调: pitchLevel = %d（比 C 调高 %d 个半音；游戏内需把乐器调到该调才能对上）"
-            % (pl, pl)
-        )
+    # ---- 定调报告
+    # 这一行是用户判断「这份谱要不要换调」的唯一依据，所以要说清三件事：
+    #   用什么调、为什么是它、没换调时音高会差多少。
+    ki = info.get("key") or {}
+    pl = int(info.get("pitch_level", 0))
+    mode = ki.get("mode", "auto")
+    t = info.get("transpose", 0)
+
+    if mode == "none":
+        print("定调: C 大调形状（--transpose none，保持原调不移调）")
+    elif mode == "c":
+        if t:
+            print(
+                "定调: C 大调（强制）。整曲被移调 %+d 半音，音高与原曲不同；" 
+                "游戏默认 C 调乐器可直接弹" % t
+            )
+        else:
+            print("定调: C 大调（强制）。原曲本就在 C 大调，音高与原曲一致")
     else:
-        print("定调: pitchLevel = 0（游戏默认 C 调，无需额外兑换）")
+        label = "自动识别" if ki.get("auto") else "手动指定"
+        hit = 100.0 * float(ki.get("hit", 0.0))
+        star = {"high": "★", "medium": "", "low": "?", "forced": ""}.get(
+            ki.get("confidence"), "")
+        line = "定调: %s（pitchLevel = %d）%s" % (ki.get("name_cn", "C 大调"), pl, star)
+        if ki.get("auto"):
+            line += "  [%s]" % label
+        print(line)
+        if ki.get("auto") and pl != 0:
+            print(
+                "      依据: 旋律音级落在 %s 音阶内 %.1f%%（12 个调里最高，"
+                "次选 %s 低 %.1f 个百分点）"
+                % (ki.get("name_cn", ""), hit, ki.get("runner_up", "?"),
+                   100.0 * float(ki.get("margin", 0.0)))
+            )
+        if ki.get("confidence") == "low":
+            print(
+                "      [不确定] 调性区分度低（可能是五声/无调/转调较多），"
+                "自动结果未必准确"
+            )
+        if pl:
+            print(
+                "      → 游戏内需用 %s 的乐器演奏；用默认 C 调乐器弹会整体差 %+d 半音"
+                % (ki.get("name_cn", ""), -pl)
+            )
+        else:
+            print("      → 游戏默认 C 调乐器可直接演奏")
     print("[可弹性] 旋律可用 15 键弹奏的比例 %.1f%%" % info.get("playability", 0.0))
     tu = info.get("time_unit_beats", 1.0) or 1.0
     unit_txt = "1" if abs(tu - 1.0) < 1e-9 else "1/%d" % round(1 / tu)

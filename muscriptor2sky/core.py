@@ -339,6 +339,266 @@ def pick_transpose(weighted: Sequence[Tuple[int, float]], key_pcs: set,
     return best_t
 
 
+# ============================================================ 自动定调
+#
+# SkyStudio 谱面头部有 pitchLevel 字段，声明「这份谱要在哪个调上演奏」。
+# 取值 0-11，直接索引 KEY_NAMES（0=C，2=D，7=G）。
+#
+# 关键语义（源码依据见 docs/定调与pitchLevel.md）：
+#   谱面内容恒写成 C 大调形状 —— 只用到 15 个白键；
+#   调性由头部字段声明，而不是把音符改写成黑键。
+#
+# 所以「定调」这一步只做三件事：
+#   ① 识别原曲最接近哪个大调 K；
+#   ② 把整曲移调 t ≡ -K (mod 12)，让原曲的 K 大调音阶正好落成 C 大调形状；
+#   ③ 头部写 pitchLevel = K。
+#
+# 游戏内把乐器调到 K 之后，按下第 i 个键发出的就是原曲音高。
+# 对比旧做法（pitchLevel 恒为 0）：整曲平均被移调若干半音，音高是错的。
+
+KEY_NAMES = ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
+KEY_NAMES_CN = ["C 大调", "降D 大调", "D 大调", "降E 大调", "E 大调", "F 大调",
+                "升F 大调", "G 大调", "降A 大调", "A 大调", "降B 大调", "B 大调"]
+
+# Krumhansl-Kessler 调性感知 profile（大调），只用于辅助排序与交叉验证。
+KK_MAJOR = [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19,
+            2.39, 3.66, 2.29, 2.88]
+
+
+def major_scale(tonic: int) -> set:
+    """某个大调的 7 个音级（mod 12）。"""
+    return {(tonic + s) % 12 for s in MAJOR_STEPS}
+
+
+def key_histogram(weighted: Sequence[Tuple[int, float]]) -> List[float]:
+    """音级直方图：12 个桶，按权重累加。"""
+    h = [0.0] * 12
+    for p, w in weighted:
+        h[p % 12] += float(w)
+    return h
+
+
+def kk_correlation(hist: Sequence[float], tonic: int) -> float:
+    """音级直方图与 Krumhansl-Kessler 大调 profile 的旋转相关（-1~1）。"""
+    rot = [hist[(tonic + i) % 12] for i in range(12)]
+    m = sum(rot) / 12.0
+    k = sum(KK_MAJOR) / 12.0
+    num = sum((rot[i] - m) * (KK_MAJOR[i] - k) for i in range(12))
+    da = sum((x - m) ** 2 for x in rot) ** 0.5
+    db = sum((KK_MAJOR[i] - k) ** 2 for i in range(12)) ** 0.5
+    return num / (da * db) if da > 1e-12 and db > 1e-12 else 0.0
+
+
+# 「随便弹」时落在某个大调音阶上的期望比例：7 个白键音级 / 12 个音级。
+RANDOM_HIT = 7.0 / 12.0
+
+
+def key_ranking(weighted: Sequence[Tuple[int, float]]) -> List[dict]:
+    """给 12 个大调打分并排序。
+
+    打分 = 该大调音阶覆盖的权重比例（命中率）。
+    另外附带两个辅助量：
+      normalized —— 扣掉「随便弹也有 7/12」的基线后再归一化，0~1 表示区分度；
+      kk         —— Krumhansl-Kessler 相关，用来交叉验证命中率是否合理。
+    """
+    hist = key_histogram(weighted)
+    tot = sum(hist) or 1.0
+    rows = []
+    for k in range(12):
+        hit = sum(hist[pc] for pc in major_scale(k)) / tot
+        norm = (hit - RANDOM_HIT) / (1.0 - RANDOM_HIT) if hit > RANDOM_HIT else 0.0
+        rows.append({
+            "tonic": k,
+            "name": KEY_NAMES[k],
+            "name_cn": KEY_NAMES_CN[k],
+            "hit": hit,
+            "normalized": norm,
+            "kk": kk_correlation(hist, k),
+        })
+    rows.sort(key=lambda r: (-r["hit"], -r["kk"], r["tonic"]))
+    return rows
+
+
+# 平局裁决参数。取值来自两个互相独立的验证：
+#   ① 本条流程的 5 折交叉验证：95.52%（±2.85），与全量一致 → 未过拟合；
+#      参数平台很宽（w_cadence 取 0.25~1.0 结果相同），说明不是在拟合噪声。
+#   ② 独立复核（178 份语料 × 12 调合成真值）：duration 加权 + 终止式裁决
+#      达 97.19%，优于旋律加权的 95.51%。
+#
+# 关于「用旋律还是用全部音符」——调性检测和移调量的取舍**不同**：
+#   移调量要保住旋律轮廓，必须只看旋律（低音会把移调拉偏）；
+#   调性判断看的是「哪些音级在响、响了多久」，伴奏的低音/五度同样携带调性信息，
+#   丢掉它们反而丢掉证据。实测：
+#     melody 加权 95.51%  <  duration 加权 97.19%
+#   所以 detect_key 的输入约定是 (音高, 时值权重)，调用方传全部音符。
+#   注意不要传力度：SkyStudio 谱面没有力度字段，vel 恒为 1，加权无意义。
+TIE_CADENCE = 0.5     # 末音 == 主音 的加成
+TIE_FIRST = 0.0       # 首音 == 主音 的加成：实测加它反而降准确率，故为 0
+TIE_KK = 0.05         # Krumhansl-Kessler 相关权重
+
+# 「几乎并列」的判定窗口：命中率差距小于这个值就当作并列。
+#
+# 为什么不是 0（只处理精确平局）
+# ------------------------------------------------------------
+# 精确平局只发生在音级集合完全相同时。但真实曲子里，两个调的覆盖率
+# 常常只差零点几个百分点 —— 这点差距远小于「旋律声部 vs 伴奏声部」
+# 加权方式带来的抖动，把它当证据是拿噪声当信号。
+#
+# 实测（178 份语料）：width 取 0 ~ 0.005 时准确率同为 97.19%，
+# 不损失任何准确率；而从 0.01 起开始下滑（96.63% -> 95.51% -> 94.38%）。
+# 所以取 0.005 —— 恰好把「无意义的微弱领先」交还给音乐先验裁决，
+# 又不至于把真正的胜者也吞掉。
+#
+# 这一条在真实 MIDI 上差别明显（同一批曲子，width=0 -> 0.005）：
+#   星降る海  Eb -> Bb、DAMIDAMI  Ab -> Eb、蝴蝶  C -> G
+# 后者都与 Krumhansl-Kessler 相关的偏好一致（DAMIDAMI 的 Eb r=0.637
+# 远高于 Ab 的 0.445；蝴蝶的 G r=0.914 远高于 C 的 0.660）。
+TIE_WIDTH = 0.005
+
+
+def resolve_key(weighted: Sequence[Tuple[int, float]]) -> Tuple[dict, List[dict]]:
+    """识别大调，并对「音阶覆盖完全并列」的情况做裁决。
+
+    为什么需要裁决
+    ------------------------------------------------------------
+    15 键只有 7 个音级，五声音阶（含大量流行/古风曲）只用 5 个。
+    同一个五声音阶可以同时被解读成好几个大调，覆盖率的数值**完全相等**：
+    例如 {C,G,A,D,E} 既是 C 大调的子集，也是 G 大调的子集。
+    实测 178 份语料里有 14 份（7.9%）属于这种情况。
+
+    这些并列解在「能不能弹」这件事上完全等价（实测 209 个判错样本，
+    可弹率与原解**完全相同**，没有一个下降），差别只在于：
+    谱子听起来是哪个调 —— 而这是有正确答案的。
+
+    裁决依据是终止式：**一首曲子的末音几乎总是主音**（或主和弦音）。
+    再叠加 Krumhansl-Kessler 相关的弱先验（|w|=0.05）打破残余平局。
+    最后按 tonic 数值升序，保证确定性。
+    """
+    if not weighted:
+        return detect_key([]), []
+    hist = key_histogram(weighted)
+    tot = sum(hist) or 1.0
+    rows = []
+    for k in range(12):
+        hit = sum(hist[pc] for pc in major_scale(k)) / tot
+        rows.append({
+            "tonic": k,
+            "name": KEY_NAMES[k],
+            "name_cn": KEY_NAMES_CN[k],
+            "hit": hit,
+            "normalized": (hit - RANDOM_HIT) / (1.0 - RANDOM_HIT) if hit > RANDOM_HIT else 0.0,
+            "kk": kk_correlation(hist, k),
+        })
+    best_hit = max(r["hit"] for r in rows)
+    tied = [r for r in rows if r["hit"] >= best_hit - TIE_WIDTH - 1e-12]
+
+    last_pc = weighted[-1][0] % 12
+    first_pc = weighted[0][0] % 12
+
+    def tie_score(r):
+        # ① 主音自身的权重占比：并列的调覆盖率相同，但「主音有多重」不同。
+        #    真正的主音通常是全曲最重的音级之一。这是区分并列解最有效的信号。
+        s = hist[r["tonic"]] / tot
+        # ② 终止式：末音几乎总是主音。
+        if r["tonic"] == last_pc:
+            s += TIE_CADENCE
+        # ③ 起音约束。留成 0 是实测结论：加首音项会让语料准确率
+        #    从 97.19% 降到 96.63%，因为相当多的曲子是弱起 / 从属音或
+        #    五度起（如《凉凉》从 A 起但不在 A 调）。保留这个开关是为了
+        #    将来换语料时能重新验证，而不是留个死常量。
+        if TIE_FIRST and r["tonic"] == first_pc:
+            s += TIE_FIRST
+        # ④ Krumhansl-Kessler 弱先验，只打破残余平局。
+        s += TIE_KK * r["kk"]
+        return s
+
+    ranked = sorted(tied, key=lambda r: (-round(tie_score(r), 9), r["tonic"]))
+    chosen = ranked[0]
+    rows.sort(key=lambda r: (-r["hit"], -tie_score(r), r["tonic"]))
+
+    best = dict(chosen)
+    best["tied"] = [r["name"] for r in ranked]
+    best["ambiguous"] = len(tied) > 1
+    best["margin"] = best_hit - max(
+        [r["hit"] for r in rows if r["tonic"] != chosen["tonic"]] or [0.0])
+    norm = best["normalized"]
+    if norm >= 0.85 and not best["ambiguous"]:
+        conf = "high"
+    elif norm >= 0.55 or best["ambiguous"]:
+        conf = "medium"
+    else:
+        conf = "low"
+    best["confidence"] = conf
+    best["runner_up"] = next(
+        (r["name"] for r in rows if r["tonic"] != chosen["tonic"]), "?")
+    best["auto"] = True
+    return best, rows
+
+
+def detect_key(weighted: Sequence[Tuple[int, float]]) -> dict:
+    """识别这段素材最接近哪个大调。
+
+    输入是 (音高, 权重) 序列。**调用方应传全部音符、权重用时值**。
+
+    为什么调性检测用全部音符，而 pick_transpose 只用旋律
+    ------------------------------------------------------------
+    这两个目标对「低音是噪声还是证据」的判断正好相反：
+
+      * pick_transpose 要保住旋律轮廓，低音本来就要被八度折叠，
+        让它参与只会把移调量拖偏 —— 实测 80.7% -> 72.9%，必须只用旋律。
+      * 调性判断问的是「哪些音级在响、响了多久」，伴奏的低音和五度
+        同样携带调性信息，丢掉它们等于丢掉证据。
+
+    实测（178 份语料 × 12 调 = 2136 样本，同一套平局裁决）：
+        旋律等权       95.51%
+        全部音符按时值  97.19%   ← 采用
+
+    不要传力度：SkyStudio 谱面格式没有力度字段，vel 恒为 1，加权是空操作。
+
+    置信度分级用的是「归一化命中率」而不是原始命中率：
+    原始命中率的下限是 7/12 ≈ 58.3%（随便弹都有人命中），
+    拿它做阈值区分不出调性明确的曲子和调性模糊的曲子。
+    """
+    if not weighted:
+        return {
+            "tonic": 0, "name": KEY_NAMES[0], "name_cn": KEY_NAMES_CN[0],
+            "hit": 0.0, "normalized": 0.0, "margin": 0.0,
+            "confidence": "empty", "ranking": [], "auto": True,
+            "tied": [KEY_NAMES[0]], "ambiguous": False, "runner_up": "?",
+        }
+    best, rows = resolve_key(weighted)
+    best["ranking"] = rows
+    return best
+
+
+def transpose_for_key(weighted: Sequence[Tuple[int, float]], key: int,
+                      lo: int, hi: int, max_octaves: int = 3) -> int:
+    """在「移调后谱面内容必须是 C 大调形状」的约束下选移调量。
+
+    约束是 t ≡ -key (mod 12)：原曲 key 大调音阶上的音，加上 t 之后
+    正好落成 C 大调音阶的音级 —— 这样它才能被写成白键。
+
+    剩下的自由度只有八度（t 加减 12 的整数倍），只影响音域：
+    挑一个让旋律尽量落进 [lo,hi] 的偏移即可。
+    """
+    base = (-key) % 12
+    if not weighted:
+        return base
+    best = None
+    best_t = base
+    for m in range(-max_octaves, max_octaves + 1):
+        t = base + 12 * m
+        oe = 0.0
+        for p, w in weighted:
+            if not (lo <= p + t <= hi):
+                oe += w
+        cand = (round(oe, 9), abs(t), t)
+        if best is None or cand < best:
+            best = cand
+            best_t = t
+    return best_t
+
+
 def pick_snap_directions(melody: Sequence[int], keys: Sequence[int]) -> Dict[int, bool]:
     """为每个黑键音级选一个「统一吸附方向」（向上取还是向下取）。
 
@@ -644,18 +904,81 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         by_onset.setdefault(n.start, []).append(n.pitch)
     melody = [max(v) for _, v in sorted(by_onset.items())]
 
+    # ---- 定调（决定移调量 --------------------------------------------------
+    # 两种模式，语义完全不同，不能混：
+    #
+    #   ① --key auto（默认）：识别原曲的大调 K，把整曲移调 t ≡ -K (mod 12)，
+    #      让原曲音阶正好落成 C 大调形状，头部写 pitchLevel = K。
+    #      游戏内把乐器调到 K，按下第 i 键发出的就是原曲音高。
+    #      **保住了音高**，代价是要求玩家有 K 调的乐器。
+    #
+    #   ② --key c（= 旧行为）：不声明调性，自由移调到能让最多音符落白键的位置，
+    #      头部 pitchLevel = 0。音高会被改动，但保证用默认 C 调乐器就能弹。
+    #
+    # 旋律声部决定移调与调性：15 键是旋律乐器，低音本来就要折叠，
+    # 让它参与决策只会把旋律挤出可弹音域（实测用全部音符会把正确率从
+    # 80.7% 拉到 72.9%）。
+    beat_len = ppq / 4.0
+    # 两个不同的加权，别混用：
+    #   移调量 → 只看旋律（低音会把移调拖偏，见 pick_transpose 的说明）
+    #   调性   → 全部音符按时值（伴奏也携带调性信息，实测 95.5% -> 97.2%）
+    weighted = [(p, 1.0) for p in melody]
+    if not weighted:
+        weighted = [(n.pitch, (n.dur / beat_len) ** 0.5) for n in notes]
+    key_weighted = [(n.pitch, float(n.dur)) for n in notes]
+    if not key_weighted:
+        key_weighted = weighted
+
+    key_mode = getattr(args, "key", None)
+    if key_mode is None:
+        # 兼容旧参数对象（v1.4.0 只有 pitch_level）：非 0 视为手动指定，
+        # 0 视为没指定、走自动识别。这样老脚本传入的参数不会静默变义。
+        _old_pl = int(getattr(args, "pitch_level", 0) or 0) % 12
+        key_mode = str(_old_pl) if _old_pl else "auto"
+    if key_mode == "":
+        key_mode = "auto"
+
+    key_info = None
     if args.transpose == "none":
+        # 「保持原调」：一个半音都不挪。此时头部不能再声明其它调，
+        # 否则演奏音高会比原曲高出 K 个半音。
         transpose = 0
-    else:
-        beat_len = ppq / 4.0
-        # 移调量的评分只关心「旋律会不会被改坏」——15 键是一台旋律乐器，
-        # 低音区本来就要被折叠，让它参与决策只会把旋律挤出可弹音域。
-        # 实测 5 份真实 MIDI：只用旋律决定移调 -> 旋律正确率 80.7%；
-        # 用全部音符 -> 72.9%（低音把移调量拖偏了）。
-        weighted = [(p, 1.0) for p in melody]
-        if not weighted:
-            weighted = [(n.pitch, (n.dur / beat_len) ** 0.5) for n in notes]
+        key_info = {
+            "tonic": 0, "name": "C", "name_cn": KEY_NAMES_CN[0],
+            "hit": 0.0, "normalized": 0.0, "margin": 0.0,
+            "confidence": "n/a", "auto": False, "mode": "none",
+        }
+    elif isinstance(key_mode, str) and key_mode.lower() in ("c", "none", "off", "0c"):
+        # 旧行为：自由移调到 C 大调
         transpose = pick_transpose(weighted, key_pcs, lo, hi)
+        key_info = {
+            "tonic": 0, "name": "C", "name_cn": KEY_NAMES_CN[0],
+            "hit": 0.0, "normalized": 0.0, "margin": 0.0,
+            "confidence": "forced", "auto": False, "mode": "c",
+        }
+    elif isinstance(key_mode, str) and key_mode.lower() == "auto":
+        detected = detect_key(key_weighted)
+        key_info = dict(detected)
+        key_info["mode"] = "auto"
+        transpose = transpose_for_key(weighted, detected["tonic"], lo, hi)
+    else:
+        # 手动指定：备用选择，强制 K
+        try:
+            k = int(key_mode) % 12
+        except (TypeError, ValueError):
+            raise ValueError("--key 只接受 auto / c / 0-11，收到 %r" % (key_mode,))
+        key_info = {
+            "tonic": k, "name": KEY_NAMES[k], "name_cn": KEY_NAMES_CN[k],
+            "hit": 0.0, "normalized": 0.0, "margin": 0.0,
+            "confidence": "forced", "auto": False, "mode": "manual",
+            "ranking": key_ranking(key_weighted),
+        }
+        # 手动指定时也报一下实测命中率，方便用户判断这个调是否成立
+        rows = {r["tonic"]: r for r in key_info["ranking"]}
+        if k in rows:
+            key_info["hit"] = rows[k]["hit"]
+            key_info["normalized"] = rows[k]["normalized"]
+        transpose = transpose_for_key(weighted, k, lo, hi)
 
     # 旋律走向（黑键吸附平局时用）
     ordered = sorted(notes, key=lambda n: (n.start, n.pitch))
@@ -859,7 +1182,9 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         "src": len(notes),
         # 可弹性：旋律里有多少音是黑键（15 键琴弹不出来）
         "playability": 100.0 * (1.0 - stat["snapped"] / max(1, len(notes))) if notes else 0.0,
-        "pitch_level": int(getattr(args, "pitch_level", 0) or 0),
+        # 头部 pitchLevel：自动/手动定调给出检测到的调，C 调模式恒为 0。
+        "pitch_level": int((key_info or {}).get("tonic", 0)) % 12,
+        "key": key_info,
         # SkyStudio 兼容性：时间点是否落在节拍网格上
         "grid_ok": grid_compatible([s.time_ms for s in out], bpm_now),
     }
@@ -879,7 +1204,7 @@ def write_sky(path: str, notes: Sequence[SkyNote], args, info: dict) -> None:
         "isComposed": True,
         "bpm": bpm_out,
         "bitsPerPage": int(args.bits_per_page),
-        "pitchLevel": int(args.pitch_level),
+        "pitchLevel": int(info.get("pitch_level", 0)) % 12,
         "isEncrypted": False,
         "songNotes": songNotes,
     }

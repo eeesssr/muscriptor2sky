@@ -11,19 +11,25 @@ from .core import (
     beat_to_ms,
     beat_unit_ms,
     build_keys,
+    detect_key,
     grid_compatible,
     grid_safe_bpm,
     key_id,
+    key_ranking,
+    major_scale,
     midi_to_sky,
     pick_snap_directions,
+    pick_transpose,
     read_midi,
     read_sky,
+    resolve_key,
     skyr_parse,
     sky_to_midi,
+    transpose_for_key,
     write_sky,
 )
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 
 __all__ = [
     "BEAT_SUBDIVISION",
@@ -36,15 +42,21 @@ __all__ = [
     "beat_to_ms",
     "beat_unit_ms",
     "build_keys",
+    "detect_key",
     "grid_compatible",
     "grid_safe_bpm",
     "key_id",
+    "key_ranking",
+    "major_scale",
     "midi_to_sky",
     "pick_snap_directions",
+    "pick_transpose",
     "read_midi",
     "read_sky",
+    "resolve_key",
     "skyr_parse",
     "sky_to_midi",
+    "transpose_for_key",
     "write_sky",
     "__version__",
 ]
