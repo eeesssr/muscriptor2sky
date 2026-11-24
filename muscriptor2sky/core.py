@@ -631,10 +631,22 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
     if not notes:
         return [], {"error": "没有可用音符"}
 
+    # ============ 关键修改：标记主旋律音符 ============
     # 旋律声部 = 每个起始点的最高音。移调量和黑键方向都只由它决定。
     by_onset: Dict[int, List[int]] = {}
     for n in notes:
         by_onset.setdefault(n.start, []).append(n.pitch)
+
+    # 记录哪些音符是主旋律（每个时刻的最高音）
+    melody_note_ids = set()
+    for start_tick, pitches in by_onset.items():
+        max_pitch = max(pitches)
+        # 找到这个时刻音高是最高音的第一个音符
+        for n in notes:
+            if n.start == start_tick and n.pitch == max_pitch:
+                melody_note_ids.add(id(n))
+                break
+
     melody = [max(v) for _, v in sorted(by_onset.items())]
 
     if args.transpose == "none":
@@ -753,11 +765,13 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
                 prefer_up = n.pitch > pp_
             else:
                 prefer_up = True
-            raw.append((n, q, folded, is_scale, prefer_up))
+            # 标记是否是主旋律
+            is_melody = id(n) in melody_note_ids
+            raw.append((n, q, folded, is_scale, prefer_up, is_melody))
 
         bass_pc = min(r[2] for r in raw) % 12 if raw else None
         picked = []
-        for (n, q, folded, is_scale, prefer_up) in raw:
+        for (n, q, folded, is_scale, prefer_up, is_melody) in raw:
             if is_scale:
                 k = folded
                 how = "octave" if q != folded else "exact"
@@ -767,28 +781,46 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
                 dir_up = snap_dirs.get(folded % 12, prefer_up)
                 k = snap(folded, keys, dir_up, bass_pc)
                 how = "snapped"
-            picked.append((n, k, how, q))
+            picked.append((n, k, how, q, is_melody))
 
+        # ============ 关键修改：复音限制时优先保留主旋律 ============
         if args.max_poly and len(picked) > args.max_poly:
-            hi_p = max(p[1] for p in picked)
-            lo_p = min(p[1] for p in picked)
+            # 分离主旋律和伴奏
+            melody_picks = [p for p in picked if p[4]]  # is_melody = True
+            accomp_picks = [p for p in picked if not p[4]]
 
-            def salient(it):
-                n, k, how, q = it
-                return n.vel + (1000 if k == hi_p else 0) + (900 if k == lo_p else 0)
+            # 主旋律全部保留
+            kept = melody_picks.copy()
 
-            kept = sorted(picked, key=salient, reverse=True)[:args.max_poly]
-            stat["dropped"] += len(picked) - len(kept)
+            # 剩余名额给伴奏
+            remaining_slots = args.max_poly - len(kept)
+            if remaining_slots > 0 and accomp_picks:
+                hi_p = max(p[1] for p in accomp_picks)
+                lo_p = min(p[1] for p in accomp_picks)
+
+                def salient(it):
+                    n, k, how, q, is_mel = it
+                    return n.vel + (1000 if k == hi_p else 0) + (900 if k == lo_p else 0)
+
+                accomp_sorted = sorted(accomp_picks, key=salient, reverse=True)
+                kept.extend(accomp_sorted[:remaining_slots])
+                stat["dropped"] += len(accomp_picks) - remaining_slots
+            else:
+                stat["dropped"] += len(accomp_picks)
+
             picked = sorted(kept, key=lambda it: it[1])
 
-        seen: Dict[int, Tuple[Note, str]] = {}
-        for n, k, how, q in picked:
+        # ============ 关键修改：同键合并时优先保留主旋律 ============
+        seen: Dict[int, Tuple[Note, str, bool]] = {}
+        for n, k, how, q, is_melody in picked:
             if k in seen:
                 stat["merged"] += 1
-                if n.vel > seen[k][0].vel:
-                    seen[k] = (n, how)
+                old_n, old_how, old_is_melody = seen[k]
+                # 如果新音符是主旋律，或者旧的不是主旋律但新的力度更大，则替换
+                if is_melody or (not old_is_melody and n.vel > old_n.vel):
+                    seen[k] = (n, how, is_melody)
             else:
-                seen[k] = (n, how)
+                seen[k] = (n, how, is_melody)
 
         # 旧拍位置 -> 墙钟毫秒（用原始 bpm 的 cell），再按新 bpm 的 cell 量化。
         # 这样 bpm 被放大 k 倍时，拍位置相应缩小 k 倍，总时长保持不变，
@@ -801,7 +833,7 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
         # 物理上差音会被基音掩蔽，听感通常是「按错的两个音」。
         virtual_extra = {}
         if getattr(args, "virtual_notes", False):
-            for n, k, how, q in picked:
+            for n, k, how, q, is_melody in picked:
                 if how != "snapped":
                     continue
                 pair = virtual_pair_for(q % 12)
@@ -813,7 +845,7 @@ def midi_to_sky(m: Midi, args) -> Tuple[List[SkyNote], dict]:
                 stat["virtual"] = stat.get("virtual", 0) + 1
 
         for k in sorted(seen):
-            how = seen[k][1]
+            n, how, is_melody = seen[k]
             stat[how] += 1
             out.append(SkyNote(ms, keys.index(k), 1, k - transpose, how))
 
