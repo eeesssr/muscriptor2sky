@@ -503,13 +503,6 @@ class SkyNote:
     how: str = "exact"
 
 
-def snap_beat_position(pos: float, subdivision: int = BEAT_SUBDIVISION) -> float:
-    """把拍位置吸附到 1/subdivision 的整数倍上。"""
-    if subdivision <= 0:
-        return pos
-    return round(pos * subdivision) / subdivision
-
-
 # 60000 的因数里适合当 bpm 的那些（保证 60000/bpm 是整数毫秒）
 _BPM_DIVISORS = tuple(b for b in range(30, 401) if 60000 % b == 0)
 
