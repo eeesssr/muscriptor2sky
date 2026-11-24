@@ -56,6 +56,8 @@ python -m muscriptor2sky song.mid -n "晴天" -a "周杰伦" --verify
 三个模式共用一个核心，差别只在输出头部的 `pitchLevel` 是否改动、以及是否补虚音键。
 详见 [定调与 pitchLevel](docs/定调与pitchLevel.md)。
 
+> 旧的 `转换.bat` 保留为 `转换-C调默认.bat` 的别名，已有快捷方式可继续用。
+
 ### Python API
 
 ```python

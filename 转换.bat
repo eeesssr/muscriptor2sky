@@ -1,39 +1,12 @@
 @echo off
 chcp 65001 >nul
-setlocal enabledelayedexpansion
-set PYTHONIOENCODING=utf-8
-set PYTHONPATH=%~dp0
+setlocal
 
-set "IN=%~1"
+REM 兼容旧入口：v1.4.0 起输出模式拆成三个 .bat
+REM   转换-C调默认.bat   pitchLevel = 0（游戏默认 C 调）  推荐
+REM   转换-定调版.bat     指定 pitchLevel 0~11
+REM   转换-虚音版.bat     用两键凑差音（实验性）
+REM
+REM 本文件保留为「C 调默认」的别名，旧快捷方式可继续用。
 
-if "!IN!"=="" (
-    echo.
-    echo   把 .mid 文件拖到本文件上即可转换成光遇琴谱
-    echo   或者直接在这里输入路径
-    echo.
-    set /p "IN=请输入 MIDI 文件路径: "
-)
-
-if not exist "!IN!" (
-    echo.
-    echo   [错误] 找不到文件: !IN!
-    echo.
-    pause
-    exit /b 1
-)
-
-echo.
-echo   正在转换: !IN!
-echo.
-
-python -m muscriptor2sky "!IN!" --verify
-set "RC=%ERRORLEVEL%"
-
-echo.
-if "%RC%"=="0" (
-    echo   转换完成，已在同目录生成 .txt 琴谱
-) else (
-    echo   [失败] 退出码 %RC%，请检查上面的报错信息
-)
-echo.
-pause
+call "%~dp0转换-C调默认.bat" %*
