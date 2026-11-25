@@ -41,6 +41,9 @@ jobs:
           mkdir -p "$PUBLISH_DIR"
           # 注意 web/. 结尾的点：复制的是目录内容，不是目录本身
           cp -R web/. "$PUBLISH_DIR"/
+          # tests/ 是开发期的一致性测试（含 12 个夹具 JSON，约 130 KB），
+          # 线上用不到，不进部署包。测试仍然在 tests.yml 里跑。
+          rm -rf "$PUBLISH_DIR/tests"
           # Jekyll 会忽略下划线开头的文件/目录，放一个 .nojekyll 关掉它
           touch "$PUBLISH_DIR/.nojekyll"
           echo "--- 发布目录根 ---"
@@ -50,7 +53,8 @@ jobs:
             test -f "$PUBLISH_DIR/$f" || { echo "缺少 $f"; exit 1; }
           done
           test ! -d "$PUBLISH_DIR/web" || { echo "多了一层 web/ 目录"; exit 1; }
-          echo "OK: 入口文件都在根目录"
+          test ! -d "$PUBLISH_DIR/tests" || { echo "tests/ 不该进部署包"; exit 1; }
+          echo "OK: 入口文件都在根目录，且不含测试目录"
 
       - name: 推送到 gh-pages
         env:
