@@ -5,7 +5,7 @@
 'use strict';
 
 /* 改这个版本号即可让浏览器安装新 SW 并清掉旧缓存 */
-var CACHE_VERSION = '1.5.0';
+var CACHE_VERSION = '1.4.2';
 var CACHE_PREFIX = 'muscriptor2sky-cache-';
 var CACHE_NAME = CACHE_PREFIX + 'v' + CACHE_VERSION;
 

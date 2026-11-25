@@ -23,7 +23,7 @@ from .core import (
     write_sky,
 )
 
-__version__ = "1.5.0"
+__version__ = "1.4.2"
 
 __all__ = [
     "BEAT_SUBDIVISION",

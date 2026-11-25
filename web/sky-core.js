@@ -28,7 +28,7 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  var VERSION = '1.5.0';
+  var VERSION = '1.4.2';
 
   // ============================================================ 常量
 
