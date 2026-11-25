@@ -372,12 +372,11 @@ node --test web/tests/           # JS 实现必须全部通过
 ## 致谢
 
 - [SkyStudio](https://play.google.com/store/apps/details?id=com.Maple.SkyStudio) — 光遇琴谱编辑器标准
-- [MuScriptor](https://huggingface.co/MuScriptor/muscriptor-small) — 开源多乐器转谱模型
+- [MuScriptor](https://huggingface.co/MuScriptor/muscriptor-small) — 开放权重模型（非商业许可）
 - [skyR](https://github.com/iKeilo/skyR) — 开源光遇弹琴实现
 - [SkyAutoPlayerScript](https://github.com/StageGuard/SkyAutoPlayerScript) — 提供社区谱面验证
 
 ## 许可
 
 [MIT](LICENSE)
-
-本项目只做格式转换,不附带任何乐谱。转谱他人作品请自行取得授权。
+本项目为独立第三方工具，与 Mirelo / Kyutai 无关联，未获其背书
