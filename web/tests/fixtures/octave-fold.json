@@ -1,0 +1,401 @@
+{
+  "slug": "octave-fold",
+  "source": "synthetic",
+  "description": "音域 C2..C7，远超 C4..C6，触发八度折叠",
+  "ppq": 480,
+  "midiSha256": "afcc2303549825854a2acf2eac45723abf53678ecc4e37fd828be819ee1e7225",
+  "midiB64": "TVRoZAAAAAYAAAABAeBNVHJrAAAAlQD/UQMHoSAAwAAAkCRkgXCAJEAAkCtkgXCAK0AAkDBkgXCAMEAAkDdkgXCAN0AAkDxkgXCAPEAAkENkgXCAQ0AAkEhkgXCASEAAkE9kgXCAT0AAkFRkgXCAVEAAkFtkgXCAW0AAkGBkgXCAYEAAkFRkgXCAVEAAkEhkgXCASEAAkDxkgXCAPEAAkDBkgXCAMEAA/y8A",
+  "cases": [
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid"
+      },
+      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "stat-min",
+          "field": "octave",
+          "min": 5
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "grid": 0
+      },
+      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "stat-eq-default"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "grid": 0.125
+      },
+      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "transpose": "none"
+      },
+      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "1fd1af9952617f3a3fc4adbfd39670c50798e237fc890eb1fe2fe98f23e3c476",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "c37361fde47d6b7751c4899bfb6aa79cf53c12777aa7d109925ea65d52bfff16",
+      "size": 612,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "maxPoly": 2
+      },
+      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "virtualNotes": true
+      },
+      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
+      "size": 1226,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "octave-fold",
+        "fileName": "octave-fold.mid",
+        "bpm": 200
+      },
+      "sha256": "e16b4cdbf1cffead324b5237d27afb1ee2184644b2b504be35ba4aabf25f3282",
+      "size": 1220,
+      "info": {
+        "transpose": 0,
+        "bpm": 400.0,
+        "unitMs": 150,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 7,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 15,
+        "noteCount": 15,
+        "playability": 100.0,
+        "melody": {
+          "total": 15,
+          "kept": 15,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "size-ne"
+        }
+      ]
+    }
+  ]
+}

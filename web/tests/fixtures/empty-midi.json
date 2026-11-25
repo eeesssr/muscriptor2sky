@@ -1,0 +1,135 @@
+{
+  "slug": "empty-midi",
+  "source": "synthetic",
+  "description": "空 MIDI（只有 end-of-track），midiToSky 应返回空音符 + error",
+  "ppq": 480,
+  "midiSha256": "816e3f0c4bf45c7995f47944c04b8682a8d8ac0fcdb4895fd70b8b744245bc97",
+  "midiB64": "TVRoZAAAAAYAAAABAeBNVHJrAAAADgD/UQMHoSAAwAAA/y8A",
+  "cases": [
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid"
+      },
+      "error": "没有可用音符",
+      "name": "default",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "grid": 0
+      },
+      "error": "没有可用音符",
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "grid": 0.125
+      },
+      "error": "没有可用音符",
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "transpose": "none"
+      },
+      "error": "没有可用音符",
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "pitchLevel": 3
+      },
+      "error": "没有可用音符",
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "encoding": "utf-8"
+      },
+      "error": "没有可用音符",
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "maxPoly": 2
+      },
+      "error": "没有可用音符",
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "virtualNotes": true
+      },
+      "error": "没有可用音符",
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "empty-midi",
+        "fileName": "empty-midi.mid",
+        "bpm": 200
+      },
+      "error": "没有可用音符",
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "error"
+        }
+      ]
+    }
+  ]
+}

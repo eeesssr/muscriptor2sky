@@ -1,0 +1,405 @@
+{
+  "slug": "single-note",
+  "source": "synthetic",
+  "description": "只有一个音符的边界用例",
+  "ppq": 480,
+  "midiSha256": "c0a38720b225700fb13b22a1217c20f1d02906b2fbc72f0f32ac8e1b4e221624",
+  "midiB64": "TVRoZAAAAAYAAAABAeBNVHJrAAAAFwD/UQMHoSAAwAAAkDxkg2CAPEAA/y8A",
+  "cases": [
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid"
+      },
+      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "notes-at-least",
+          "min": 1
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ],
+      "expectText": "[{\"name\":\"single-note\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"MuScriptor\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key0\"}]}]"
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "grid": 0
+      },
+      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "grid": 0.125
+      },
+      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "transpose": "none"
+      },
+      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "d4de777803a3d54f163a2476bd41f07408bf1bc7708b1ca984a87a7f16aef184",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "pitch-level",
+          "equals": 3
+        },
+        {
+          "kind": "mono"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "ddb1bcbfa6c7e95269fc300557fb2fc514f4457be367df6639c7d685c5e7091a",
+      "size": 218,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "size-ne"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "maxPoly": 2
+      },
+      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "virtualNotes": true
+      },
+      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "single-note",
+        "fileName": "single-note.mid",
+        "bpm": 200
+      },
+      "sha256": "55504a93cf1514b1cace3edc3d00c0ceae97106cdd930e1cfad4c9d3a66300e5",
+      "size": 438,
+      "info": {
+        "transpose": 0,
+        "bpm": 200.0,
+        "unitMs": 300,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 1,
+        "noteCount": 1,
+        "playability": 100.0,
+        "melody": {
+          "total": 1,
+          "kept": 1,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    }
+  ]
+}

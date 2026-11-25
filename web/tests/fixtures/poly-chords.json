@@ -1,0 +1,417 @@
+{
+  "slug": "poly-chords",
+  "source": "synthetic",
+  "description": "6 音同时发声 + 打击乐轨（drums 计数后丢弃）",
+  "ppq": 480,
+  "midiSha256": "950929e199fb9bd95108a04d8d1df3ed4bb00405f53f90b938938dbab389c47e",
+  "midiB64": "TVRoZAAAAAYAAQACAeBNVHJrAAAA0gD/UQMHoSAAwAAAkDxkAJA+ZACQQGQAkEFkAJBDZACQRWSDYIA8QACAPkAAgEBAAIBBQACAQ0AAgEVAAJA+ZACQQGQAkEFkAJBDZACQRWQAkEdkg2CAPkAAgEBAAIBBQACAQ0AAgEVAAIBHQACQQGQAkEFkAJBDZACQRWQAkEdkAJBIZINggEBAAIBBQACAQ0AAgEVAAIBHQACASEAAkDxkAJBAZACQQ2QAkEhkAJBMZACQT2SDYIA8QACAQEAAgENAAIBIQACATEAAgE9AAP8vAE1UcmsAAABLAJkkWjyJJECBNJkmWjyJJkCBNJkkWjyJJECBNJkmWjyJJkCBNJkkWjyJJECBNJkmWjyJJkCBNJkkWjyJJECBNJkmWjyJJkAA/y8A",
+  "cases": [
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid"
+      },
+      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
+      "size": 1686,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "max-poly-at-least",
+          "min": 3
+        },
+        {
+          "kind": "max-poly-at-most",
+          "max": 6
+        },
+        {
+          "kind": "drums",
+          "equals": 8
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "grid": 0
+      },
+      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
+      "size": 1686,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "grid": 0.125
+      },
+      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
+      "size": 1686,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "transpose": "none"
+      },
+      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
+      "size": 1686,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "59dd1a270e06468b8a22300e7dfff471ee6556d18839d34b3a9a74cfffc0d172",
+      "size": 1686,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "c7da31a4dd0853427463fd95fc72f85ed83ebe874cb579d990079a3a50c4abe4",
+      "size": 842,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "maxPoly": 2
+      },
+      "sha256": "03d6fcdb5077a80b10d2a5906fbdcc60d717362e2003d5a89950b4d0fbdb7f07",
+      "size": 822,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 16
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 8,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "max-poly-at-most",
+          "max": 2
+        },
+        {
+          "kind": "stat-min",
+          "field": "dropped",
+          "min": 1
+        },
+        {
+          "kind": "melody-all-kept"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "virtualNotes": true
+      },
+      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
+      "size": 1686,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "poly-chords",
+        "fileName": "poly-chords.mid",
+        "bpm": 200
+      },
+      "sha256": "31cb1e218e87a67961f6169ef869f22b5093d30fcc57e0eb2fc91aa43021dfd1",
+      "size": 1662,
+      "info": {
+        "transpose": 0,
+        "bpm": 200.0,
+        "unitMs": 300,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 24,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 8,
+        "src": 24,
+        "noteCount": 24,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    }
+  ]
+}

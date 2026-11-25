@@ -1,0 +1,402 @@
+{
+  "slug": "no-tempo",
+  "source": "synthetic",
+  "description": "没有 tempo 事件，TempoMap 应退回默认 500000us = 120bpm",
+  "ppq": 480,
+  "midiSha256": "99a98f1642a542bc2e489bde696b547ae7a3f0fc710acf9810a34509a25633f1",
+  "midiB64": "TVRoZAAAAAYAAQABAeBNVHJrAAAAYQDAAACQPGSDYIA8QACQPmSDYIA+QACQQGSDYIBAQACQQWSDYIBBQACQQ2SDYIBDQACQRWSDYIBFQACQR2SDYIBHQACQSGSDYIBIQACQSmSDYIBKQACQTGSDYIBMQAD/LwA=",
+  "cases": [
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid"
+      },
+      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "no-tempo-120"
+        },
+        {
+          "kind": "keys-in-range"
+        },
+        {
+          "kind": "melody-all-kept"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "grid": 0
+      },
+      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "grid": 0.125
+      },
+      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "transpose": "none"
+      },
+      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "c3491194f5df7fb88165ad0152ff2e4ba221d36ca077fefdf5602583d564835c",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "b83594db4e31eb47cd2ea05562f3e09e5d22abddd35719914a9a5a4ffc66cfb7",
+      "size": 466,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "maxPoly": 2
+      },
+      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "virtualNotes": true
+      },
+      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
+      "size": 934,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "no-tempo",
+        "fileName": "no-tempo.mid",
+        "bpm": 200
+      },
+      "sha256": "f97c90972f485d3c9f796778910c1c00a8c9eea6f6f643cc71b36040ec783b81",
+      "size": 930,
+      "info": {
+        "transpose": 0,
+        "bpm": 200.0,
+        "unitMs": 300,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 10,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 10,
+        "noteCount": 10,
+        "playability": 100.0,
+        "melody": {
+          "total": 10,
+          "kept": 10,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    }
+  ]
+}

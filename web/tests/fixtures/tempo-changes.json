@@ -1,0 +1,404 @@
+{
+  "slug": "tempo-changes",
+  "source": "synthetic",
+  "description": "3 段 tempo 变化（首段 150bpm，后接 120 / 100）",
+  "ppq": 480,
+  "midiSha256": "2cb93b533d2f245b19f342514cf23b13b34bdc38ffa540c53e037da07ad207bf",
+  "midiB64": "TVRoZAAAAAYAAQABAeBNVHJrAAAAiAD/UQMGGoAAwAAAkDxkg2CAPEAAkD5kg2CAPkAAkEBkg2CAQEAAkENkg2D/UQMHoSAAgENAAJBFZINggEVAAJBHZINggEdAAJBIZINggEhAAJBKZINg/1EDCSfAAIBKQACQTGSDYIBMQACQT2SDYIBPQACQUWSDYIBRQACQVGSDYIBUQAD/LwA=",
+  "cases": [
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid"
+      },
+      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "bpm",
+          "equals": 150.0
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "grid": 0
+      },
+      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "grid": 0.125
+      },
+      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "transpose": "none"
+      },
+      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "996db07e29491ba5a3bcd45549b5f087911374d50d926bb058d46c9d8379188e",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "b280385cb4fa6374771112df5ad02e96fdbe6c3dec8d4197fd4a5aabe7061501",
+      "size": 529,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "maxPoly": 2
+      },
+      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "virtualNotes": true
+      },
+      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
+      "size": 1060,
+      "info": {
+        "transpose": 0,
+        "bpm": 150.0,
+        "unitMs": 400,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "tempo-changes",
+        "fileName": "tempo-changes.mid",
+        "bpm": 200
+      },
+      "sha256": "ef5d8ea8554ca68cda00fc8a2c9d1550f133b617c597f3a8c12ee923f8bb23b4",
+      "size": 1058,
+      "info": {
+        "transpose": 0,
+        "bpm": 200.0,
+        "unitMs": 300,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 12,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 12,
+        "noteCount": 12,
+        "playability": 100.0,
+        "melody": {
+          "total": 12,
+          "kept": 12,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "bpm",
+          "equals": 200.0
+        },
+        {
+          "kind": "size-ne"
+        }
+      ]
+    }
+  ]
+}

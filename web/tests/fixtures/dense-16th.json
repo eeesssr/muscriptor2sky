@@ -1,0 +1,399 @@
+{
+  "slug": "dense-16th",
+  "source": "synthetic",
+  "description": "极密十六分音符，触发 BEAT_SUBDIVISION 与 cell 计算",
+  "ppq": 480,
+  "midiSha256": "c1f1b628d3d37f6049df75ff702510fb1d0b8a5cb8ac6b23870b5fea62e4eba8",
+  "midiB64": "TVRoZAAAAAYAAAABAeBNVHJrAAABDgD/UQMHoSAAwAAAkDxkeIA8QACQPmR4gD5AAJBAZHiAQEAAkEFkeIBBQACQQ2R4gENAAJBFZHiARUAAkEdkeIBHQACQSGR4gEhAAJBHZHiAR0AAkEVkeIBFQACQQ2R4gENAAJBBZHiAQUAAkEBkeIBAQACQPmR4gD5AAJA8ZHiAPEAAkDtkeIA7QACQPGR4gDxAAJA+ZHiAPkAAkEBkeIBAQACQQWR4gEFAAJBDZHiAQ0AAkEVkeIBFQACQR2R4gEdAAJBIZHiASEAAkEpkeIBKQACQSGR4gEhAAJBHZHiAR0AAkEVkeIBFQACQQ2R4gENAAJBBZHiAQUAAkEBkeIBAQACQPmR4gD5AAP8vAA==",
+  "cases": [
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid"
+      },
+      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        },
+        {
+          "kind": "melody-all-kept"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "grid": 0
+      },
+      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "grid": 0.125
+      },
+      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "transpose": "none"
+      },
+      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "a73ad10d82246f44c4c84d219b70aab0d264efc9d17da0d64c651d9835b40066",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "bbb49c0bb7eb59d17f4b9d3c1795f680265f4d2c74363f4c482afa05c263d94e",
+      "size": 1078,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "maxPoly": 2
+      },
+      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "virtualNotes": true
+      },
+      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
+      "size": 2158,
+      "info": {
+        "transpose": 0,
+        "bpm": 480.0,
+        "unitMs": 125,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "dense-16th",
+        "fileName": "dense-16th.mid",
+        "bpm": 200
+      },
+      "sha256": "e899341b3a3fc81a9ce3189901526438e8285d2e40037b79c9c570fc8cca02ee",
+      "size": 2144,
+      "info": {
+        "transpose": 0,
+        "bpm": 800.0,
+        "unitMs": 75,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 31,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 32,
+        "noteCount": 32,
+        "playability": 100.0,
+        "melody": {
+          "total": 32,
+          "kept": 32,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    }
+  ]
+}

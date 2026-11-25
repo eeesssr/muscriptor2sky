@@ -1,0 +1,65 @@
+name: tests
+
+# Python 参考实现与 JS 移植的验收：
+#   1) Python 单测（pytest）
+#   2) 夹具必须与 Python 输出完全一致（gen_fixtures.py --check）
+#   3) sky-core.js 逐字节复现夹具（node --test）
+#
+# 夹具（web/tests/fixtures/*.json）是提交进仓库的产物，
+# 所以 --check 能起到「谁改了 core.py 却没重新生成夹具」的拦截作用。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python 参考实现 + 夹具校验
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install pytest
+
+      - name: pytest
+        run: pytest -q
+
+      - name: 夹具必须与 Python 参考实现一致
+        run: python tools/gen_fixtures.py --check
+
+  node:
+    name: sky-core.js 逐字节对齐
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 零依赖：不跑 npm install，直接用 Node 内置的 node:test。
+      #
+      # ⚠️ 必须显式指定测试文件，不能传目录：
+      #     node --test web/tests/   -> 把目录当模块 require，报 MODULE_NOT_FOUND
+      #     node --test web/tests    -> 同上
+      # （Node 24 实测；Node 20/22 也有同样的路径解析行为）
+      # 显式文件路径在 20/22/24 上行为一致，也不依赖自动发现规则。
+      - name: node --test
+        run: node --test web/tests/core.test.js

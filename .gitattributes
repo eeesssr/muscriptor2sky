@@ -1,0 +1,19 @@
+# 换行符策略
+#
+# 为什么显式声明：仓库在 Windows 上开发（core.autocrlf=true），但 CI 跑在 Linux。
+# 不声明的话同一文件在不同机器上换行符不同，web/tests 的字节级比对会误报。
+
+# 默认：文本文件一律 LF（仓库内统一，跨平台一致）
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制：不做任何换行转换
+*.mid binary
+*.midi binary
+*.png binary
+
+# 夹具 JSON 内含 sha256，行尾被改写会产生 diff 噪声，锁死 LF
+web/tests/fixtures/*.json text eol=lf

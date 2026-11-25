@@ -1,0 +1,71 @@
+name: pages
+
+# 把 main 分支的 web/ 目录同步到 gh-pages 分支的根目录。
+#
+# 部署方式：仓库 Settings -> Pages -> "Deploy from a branch"
+#           -> 分支 gh-pages -> 目录 / (root)
+# 站点地址：https://eeesssr.github.io/muscriptor2sky/
+#
+# 关键约束：gh-pages 的**根目录**必须直接是 index.html / sky-core.js /
+# sw.js / manifest.webmanifest，不能多套一层 web/，否则站点会变成
+# https://eeesssr.github.io/muscriptor2sky/web/。
+# 所以 publish 目录里复制的是 web/ 的**内容**（web/.），不是 web 目录本身。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: 发布 web/ 到 gh-pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: 组装发布目录（web/ 内容铺到根）
+        run: |
+          set -euo pipefail
+          PUBLISH_DIR="$RUNNER_TEMP/publish"
+          rm -rf "$PUBLISH_DIR"
+          mkdir -p "$PUBLISH_DIR"
+          # 注意 web/. 结尾的点：复制的是目录内容，不是目录本身
+          cp -R web/. "$PUBLISH_DIR"/
+          # Jekyll 会忽略下划线开头的文件/目录，放一个 .nojekyll 关掉它
+          touch "$PUBLISH_DIR/.nojekyll"
+          echo "--- 发布目录根 ---"
+          ls -la "$PUBLISH_DIR"
+          # 硬性校验：站点入口必须在根目录，不能多一层 web/
+          for f in index.html sky-core.js sw.js manifest.webmanifest .nojekyll; do
+            test -f "$PUBLISH_DIR/$f" || { echo "缺少 $f"; exit 1; }
+          done
+          test ! -d "$PUBLISH_DIR/web" || { echo "多了一层 web/ 目录"; exit 1; }
+          echo "OK: 入口文件都在根目录"
+
+      - name: 推送到 gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PUBLISH_DIR="$RUNNER_TEMP/publish"
+          cd "$PUBLISH_DIR"
+          # git init -b 需要 git >= 2.28；这里用 branch -M 更稳
+          git init -q
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # 每次部署都重建历史（force push），避免 gh-pages 无限膨胀
+          git commit -q -m "deploy: web/ -> gh-pages (${GITHUB_SHA})"
+          git branch -M gh-pages
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          echo "已发布: https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"

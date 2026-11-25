@@ -1,0 +1,417 @@
+{
+  "slug": "black-keys-heavy",
+  "source": "synthetic",
+  "description": "大量黑键，触发 snapped 与 pick_snap_directions 的 32 种组合搜索",
+  "ppq": 480,
+  "midiSha256": "0a694b5b648c4ff04e7cb6d275f1df0eb986b7ee42d3569f4acaf232c15ef734",
+  "midiB64": "TVRoZAAAAAYAAAABAeBNVHJrAAAAwgD/UQMHoSAAwAAAkD1kgXCAPUAAkD9kgXCAP0AAkEJkgXCAQkAAkERkgXCAREAAkEZkgXCARkAAkD1kgXCAPUAAkD9kgXCAP0AAkEJkgXCAQkAAkERkgXCAREAAkEZkgXCARkAAkEhkgXCASEAAkElkgXCASUAAkEtkgXCAS0AAkE5kgXCATkAAkFBkgXCAUEAAkElkgXCASUAAkEtkgXCAS0AAkE5kgXCATkAAkFBkgXCAUEAAkFJkgXCAUkAA/y8A",
+  "cases": [
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid"
+      },
+      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
+      "size": 1516,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "transpose",
+          "equals": -1
+        },
+        {
+          "kind": "stat-eq",
+          "field": "snapped",
+          "equals": 0
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "grid": 0
+      },
+      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
+      "size": 1516,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "grid": 0.125
+      },
+      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
+      "size": 1516,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "transpose": "none"
+      },
+      "sha256": "bfbd6ac75f88df33f94e18bb560a1e659f12cc4f820f482580d5cbbb25c29309",
+      "size": 1516,
+      "info": {
+        "transpose": 0,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 1,
+          "octave": 0,
+          "snapped": 19,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 5.000000000000004,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "stat-min",
+          "field": "snapped",
+          "min": 10
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "abe007a5c26ea3f83c7809caa3add253050939f642283635f04b65113b24bdee",
+      "size": 1516,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "74256a06b1bd42dab92fc15e3d31150bd247cb79d69f220467e1d522467813d0",
+      "size": 757,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "maxPoly": 2
+      },
+      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
+      "size": 1516,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "virtualNotes": true
+      },
+      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
+      "size": 1516,
+      "info": {
+        "transpose": -1,
+        "bpm": 240.0,
+        "unitMs": 250,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "transpose",
+          "equals": -1
+        },
+        {
+          "kind": "stat-eq-default"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "black-keys-heavy",
+        "fileName": "black-keys-heavy.mid",
+        "bpm": 200
+      },
+      "sha256": "d0d5eaa4f8442afae7d8d0eb47d3802042c4fbfbf83f35293fa4c6134c13bea0",
+      "size": 1510,
+      "info": {
+        "transpose": -1,
+        "bpm": 400.0,
+        "unitMs": 150,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 20,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 20,
+        "noteCount": 20,
+        "playability": 100.0,
+        "melody": {
+          "total": 20,
+          "kept": 20,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "size-ne"
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    }
+  ]
+}

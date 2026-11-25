@@ -1,0 +1,460 @@
+{
+  "slug": "maxpoly-drop",
+  "source": "synthetic",
+  "description": "6 音和弦 + maxPoly=1/2，触发 dropped，主旋律必须全部保留",
+  "ppq": 480,
+  "midiSha256": "eeec7047efbcbca33355b6b491f72ff3dfc315651ce7883b069f96f74bd29a52",
+  "midiB64": "TVRoZAAAAAYAAAABAeBNVHJrAAAA0gD/UQMHoSAAwAAAkDxkAJBAZACQQ2QAkEhkAJBMZACQT2SDYIA8QACAQEAAgENAAIBIQACATEAAgE9AAJA+ZACQQWQAkEVkAJBKZACQTWQAkFFkg2CAPkAAgEFAAIBFQACASkAAgE1AAIBRQACQO2QAkD5kAJBDZACQR2QAkEpkAJBPZINggDtAAIA+QACAQ0AAgEdAAIBKQACAT0AAkDxkAJBAZACQQ2QAkEhkAJBMZACQVGSDYIA8QACAQEAAgENAAIBIQACATEAAgFRAAP8vAA==",
+  "cases": [
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid"
+      },
+      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
+      "size": 1640,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "default",
+      "checks": [
+        {
+          "kind": "melody-all-kept"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "grid": 0
+      },
+      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
+      "size": 1640,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "grid": 0.125
+      },
+      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
+      "size": 1640,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "grid-0.125",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "transpose": "none"
+      },
+      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
+      "size": 1640,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "transpose-none",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "pitchLevel": 3
+      },
+      "sha256": "b92a4865a7d5a98e0dcfa339cab6daf6a60e1318191710c9255bc902ddbe96c4",
+      "size": 1640,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 3,
+        "gridOk": true
+      },
+      "name": "pitch-level-3",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "encoding": "utf-8"
+      },
+      "sha256": "a192061bd95c4eb28f92d7cc2724659ded88db58d8729409011796a7400be88c",
+      "size": 819,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "encoding-utf8",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "maxPoly": 2
+      },
+      "sha256": "4cf2978c4fd6b01494436fa7206545637425390d9f67a98d827f69a8bbfd5221",
+      "size": 832,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 8,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 16
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 8,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-2",
+      "checks": [
+        {
+          "kind": "stat-min",
+          "field": "dropped",
+          "min": 1
+        },
+        {
+          "kind": "melody-all-kept"
+        },
+        {
+          "kind": "max-poly-at-most",
+          "max": 2
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "virtualNotes": true
+      },
+      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
+      "size": 1640,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "virtual-notes",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "bpm": 200
+      },
+      "sha256": "9eaa48732aa0b711c7f7dfb4cb06806ed6845b018dad7f6d56f2fcbceda4b817",
+      "size": 1618,
+      "info": {
+        "transpose": 0,
+        "bpm": 200.0,
+        "unitMs": 300,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 22,
+          "octave": 1,
+          "snapped": 0,
+          "merged": 1,
+          "dropped": 0
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 23,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "bpm-200",
+      "checks": [
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    },
+    {
+      "opts": {
+        "name": "maxpoly-drop",
+        "fileName": "maxpoly-drop.mid",
+        "maxPoly": 1
+      },
+      "sha256": "49ef099a876ace5c1a538dcde8a29458cb1b43f8b65bc7416d81cf115738f4a9",
+      "size": 614,
+      "info": {
+        "transpose": 0,
+        "bpm": 120.0,
+        "unitMs": 500,
+        "timeUnitBeats": 1.0,
+        "range": [
+          60,
+          84
+        ],
+        "stat": {
+          "exact": 4,
+          "octave": 0,
+          "snapped": 0,
+          "merged": 0,
+          "dropped": 20
+        },
+        "drums": 0,
+        "src": 24,
+        "noteCount": 4,
+        "playability": 100.0,
+        "melody": {
+          "total": 4,
+          "kept": 4,
+          "rate": 100.0
+        },
+        "pitchLevel": 0,
+        "gridOk": true
+      },
+      "name": "max-poly-1",
+      "checks": [
+        {
+          "kind": "stat-min",
+          "field": "dropped",
+          "min": 1
+        },
+        {
+          "kind": "melody-all-kept"
+        },
+        {
+          "kind": "max-poly-at-most",
+          "max": 1
+        },
+        {
+          "kind": "keys-in-range"
+        }
+      ]
+    }
+  ]
+}
