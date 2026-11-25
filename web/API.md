@@ -52,7 +52,7 @@ UMD 尾巴：
 | `skyrParse` | `(bytes: Uint8Array) -> Verify` | 格式自检 |
 | `preview` | `(notes: SkyNote[]) -> string` | 简谱预览文本 |
 | `DEFAULTS` | `Opts` | 默认参数（见下） |
-| `VERSION` | `string` | 与 Python 包版本一致 |
+| `VERSION` | `string` | 网页版独立编号，形如 `1.5.0_web`（**不等于**主仓库版本） |
 
 所有错误一律 `throw new Error('中文说明')`，UI 直接展示 `e.message`。
 
@@ -169,6 +169,15 @@ Python `list.sort()` 稳定，JS `Array.prototype.sort` 在 ES2019 起也稳定�
     node --test web/tests/                  # JS 实现必须全绿
 
 只要夹具比对通过，网页版就与命令行版**逐字节等价**。
+
+## 版本号约定
+
+网页版有**自己的**版本号，形如 `1.5.0_web`，与主仓库（Python 包）的版本号是两条线：
+
+- 主仓库版本在 `pyproject.toml` / `__init__.py`，代表命令行工具的功能版本；
+- 网页版只是同一套算法的另一个入口，**不算主仓库的功能更新**，所以单独编号；
+- `web/tests/core.test.js` 会断言 `VERSION` 匹配 `^\d+\.\d+\.\d+_web$`
+  且**不等于** `pyproject.toml` 里的版本，防止两者被误改成一个。
 
 ## 隐私说明（写进 README 与页面）
 

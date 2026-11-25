@@ -28,7 +28,9 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  var VERSION = '1.5.0';
+  // 网页版独立编号，不是主仓库的版本号。
+  // 主仓库（Python 包）版本见 pyproject.toml，两者不要混。
+  var VERSION = '1.5.0_web';
 
   // ============================================================ 常量
 

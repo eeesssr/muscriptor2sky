@@ -609,11 +609,14 @@ test('DEFAULTS 必须与 web/API.md 的参数表一致', () => {
   assert.strictEqual(D.author, null);
 });
 
-test('VERSION 与 Python 包版本一致', () => {
+test('VERSION 是网页版独立编号，且与主仓库版本区分开', () => {
   const v = core().VERSION;
   assert.strictEqual(typeof v, 'string', 'sky-core.js 必须导出 VERSION 字符串');
+  // 网页版有自己的编号（形如 1.5.0_web），不是主仓库 Python 包的版本号。
+  // 网页版只是给同一套算法多一个入口，不算主仓库的功能更新。
+  assert.match(v, /^\d+\.\d+\.\d+_web$/, 'VERSION 必须是 x.y.z_web 形式，实际: ' + v);
   const pyproject = fs.readFileSync(path.join(REPO, 'pyproject.toml'), 'utf8');
   const m = /^version\s*=\s*"([^"]+)"/m.exec(pyproject);
   assert.ok(m, '无法从 pyproject.toml 读出 version');
-  assert.strictEqual(v, m[1], 'VERSION 应与 pyproject.toml 的 version 一致');
+  assert.notStrictEqual(v, m[1], '网页版版本号不应等于主仓库版本号');
 });
