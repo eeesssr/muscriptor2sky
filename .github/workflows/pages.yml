@@ -1,15 +1,18 @@
 name: pages
 
-# 把 main 分支的 web/ 目录同步到 gh-pages 分支的根目录。
+# 网页版发布到个人站点仓库 eeesssr/eeesssr.github.io 的 muscriptor2sky/ 子目录。
 #
-# 部署方式：仓库 Settings -> Pages -> "Deploy from a branch"
-#           -> 分支 gh-pages -> 目录 / (root)
-# 站点地址：https://eeesssr.github.io/muscriptor2sky/
+# 为什么不用本仓库的 gh-pages：
+#   本项目仓库的 gh-pages 分支会发布到 https://eeesssr.github.io/muscriptor2sky/，
+#   而个人站点仓库里的 muscriptor2sky/ 目录发布到**同一个地址**。
+#   两个来源抢同一个路径，GitHub Pages 优先用 gh-pages，导致个人站点仓库的内容不生效。
+#   所以统一到个人站点仓库一个来源，本仓库不再建 gh-pages 分支。
 #
-# 关键约束：gh-pages 的**根目录**必须直接是 index.html / sky-core.js /
-# sw.js / manifest.webmanifest，不能多套一层 web/，否则站点会变成
-# https://eeesssr.github.io/muscriptor2sky/web/。
-# 所以 publish 目录里复制的是 web/ 的**内容**（web/.），不是 web 目录本身。
+# 前置条件（只需配一次）：
+#   在 eeesssr/eeesssr.github.io 仓库 Settings -> Secrets and variables -> Actions
+#   新建 secret: PAGES_DEPLOY_TOKEN
+#   值是一个对 eeesssr.github.io 有 contents:write 权限的 PAT（classic 或 fine-grained 均可）。
+#   用内置 GITHUB_TOKEN 推不了别的仓库。
 
 on:
   push:
@@ -19,7 +22,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: pages
@@ -27,49 +30,62 @@ concurrency:
 
 jobs:
   deploy:
-    name: 发布 web/ 到 gh-pages
+    name: 发布 web/ 到个人站点仓库
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout 本仓库
         uses: actions/checkout@v4
 
-      - name: 组装发布目录（web/ 内容铺到根）
+      - name: 检查部署密钥是否已配置
+        env:
+          TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo '::error::缺少 PAGES_DEPLOY_TOKEN。请在 eeesssr/eeesssr.github.io 仓库设置里新建该 secret。'
+            exit 1
+          fi
+          echo 'OK: 部署密钥已配置'
+
+      - name: 组装发布目录（web/ 内容铺平）
         run: |
           set -euo pipefail
           PUBLISH_DIR="$RUNNER_TEMP/publish"
           rm -rf "$PUBLISH_DIR"
           mkdir -p "$PUBLISH_DIR"
-          # 注意 web/. 结尾的点：复制的是目录内容，不是目录本身
+          # web/. 结尾的点：复制的是目录内容，不是目录本身
           cp -R web/. "$PUBLISH_DIR"/
-          # tests/ 是开发期的一致性测试（含 12 个夹具 JSON，约 130 KB），
-          # 线上用不到，不进部署包。测试仍然在 tests.yml 里跑。
+          # tests/ 是开发期一致性测试（含 12 个夹具 JSON），线上用不到
           rm -rf "$PUBLISH_DIR/tests"
-          # Jekyll 会忽略下划线开头的文件/目录，放一个 .nojekyll 关掉它
+          # Jekyll 会忽略下划线开头的文件，放一个 .nojekyll 关掉它
           touch "$PUBLISH_DIR/.nojekyll"
-          echo "--- 发布目录根 ---"
+          echo '--- 发布目录 ---'
           ls -la "$PUBLISH_DIR"
-          # 硬性校验：站点入口必须在根目录，不能多一层 web/
           for f in index.html sky-core.js sw.js manifest.webmanifest .nojekyll; do
             test -f "$PUBLISH_DIR/$f" || { echo "缺少 $f"; exit 1; }
           done
-          test ! -d "$PUBLISH_DIR/web" || { echo "多了一层 web/ 目录"; exit 1; }
-          test ! -d "$PUBLISH_DIR/tests" || { echo "tests/ 不该进部署包"; exit 1; }
-          echo "OK: 入口文件都在根目录，且不含测试目录"
+          test ! -d "$PUBLISH_DIR/tests" || { echo 'tests/ 不该进部署包'; exit 1; }
+          echo 'OK: 入口文件齐全'
 
-      - name: 推送到 gh-pages
+      - name: 推送到 eeesssr.github.io
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.PAGES_DEPLOY_TOKEN }}
         run: |
           set -euo pipefail
           PUBLISH_DIR="$RUNNER_TEMP/publish"
-          cd "$PUBLISH_DIR"
-          # git init -b 需要 git >= 2.28；这里用 branch -M 更稳
-          git init -q
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          SITE_DIR="$RUNNER_TEMP/site"
+          git clone --depth 1 "https://x-access-token:${TOKEN}@github.com/eeesssr/eeesssr.github.io.git" "$SITE_DIR"
+          cd "$SITE_DIR"
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # 只替换 muscriptor2sky/ 子目录，根目录其它文件（个人页面）原样保留
+          rm -rf muscriptor2sky
+          mkdir -p muscriptor2sky
+          cp -R "$PUBLISH_DIR"/. muscriptor2sky/
           git add -A
-          # 每次部署都重建历史（force push），避免 gh-pages 无限膨胀
-          git commit -q -m "deploy: web/ -> gh-pages (${GITHUB_SHA})"
-          git branch -M gh-pages
-          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
-          echo "已发布: https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          if git diff --cached --quiet; then
+            echo '没有变化，跳过提交'
+          else
+            git commit -q -m "deploy: muscriptor2sky 网页版 (${{ github.sha }})"
+            git push origin main
+            echo '已发布: https://eeesssr.github.io/muscriptor2sky/'
+          fi

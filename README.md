@@ -45,6 +45,11 @@
 网页版和命令行版跑的是同一套算法。`web/sky-core.js` 是 `core.py` 的逐字节移植,
 由 109 个基准夹具用例保证两者输出完全一致(见 [web/API.md](web/API.md))。
 
+**部署方式**:网页版静态文件由 GitHub Actions 自动同步到个人站点仓库
+[eeesssr/eeesssr.github.io](https://github.com/eeesssr/eeesssr.github.io) 的
+`muscriptor2sky/` 子目录。本仓库不建 `gh-pages` 分支 —— 因为本仓库的 `gh-pages`
+会和那个子目录抢同一个 URL,导致发布内容错乱。
+
 ---
 
 ## 安装
