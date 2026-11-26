@@ -195,13 +195,24 @@ python -m muscriptor2sky "晴天.txt" -o 晴天.mid
 
 ## 完整工作流:音频转琴谱
 
+本工具只做 MIDI -> 琴谱这一段。音频转 MIDI 需要上游工具,下面两个都可以:
+
+| 上游工具 | 地址 | 特点 |
+|---|---|---|
+| **MuScriptor** | [muscriptor.kyutai.org](https://muscriptor.kyutai.org/) | 网页版直接上传音频,也可本地跑 CLI |
+| **听谱 Hearscore** | [hear-score.lirentech.net](https://hear-score.lirentech.net/) | 浏览器本地识别 MP3/WAV,带钢琴卷帘、变速试听,导出 MIDI/JSON |
+
+两个都免费、都在本地或可本地处理。同一段音频用不同工具转出的 MIDI 会有差异,
+哪个在 15 键上听着更像原曲就用哪个。
+
 ```bash
-# 1. 用 MuScriptor 把音频转成 MIDI
+# 1. 用 MuScriptor 把音频转成 MIDI（也可用 Hearscore 网页导出 .mid）
 #    用 --instruments 只要钢琴轨
 muscriptor transcribe --model medium --instruments "acoustic_piano" audio.wav -o piano.mid
 
 # 2. 转成光遇琴谱
 #    --transcribed 记录「谁把音频转成的 MIDI」，这一步是 MuScriptor 就用它
+#    用 Hearscore 转的就写 --transcribed Hearscore
 python -m muscriptor2sky piano.mid -n "曲名" -a "作者" --transcribed MuScriptor --verify
 
 # 3. 把 .txt 传到手机
@@ -376,6 +387,7 @@ node --test web/tests/           # JS 实现必须全部通过
 
 - [SkyStudio](https://play.google.com/store/apps/details?id=com.Maple.SkyStudio) — 光遇琴谱编辑器标准
 - [MuScriptor](https://huggingface.co/MuScriptor/muscriptor-small) — 开放权重模型（非商业许可）
+- [听谱 Hearscore](https://hear-score.lirentech.net/) — 浏览器本地音频转 MIDI 工具
 - [skyR](https://github.com/iKeilo/skyR) — 开源光遇弹琴实现
 - [SkyAutoPlayerScript](https://github.com/StageGuard/SkyAutoPlayerScript) — 提供社区谱面验证
 
