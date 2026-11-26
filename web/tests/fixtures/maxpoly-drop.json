@@ -11,8 +11,8 @@
         "name": "maxpoly-drop",
         "fileName": "maxpoly-drop.mid"
       },
-      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
-      "size": 1640,
+      "sha256": "55cfb486b98f0250d0b8727e9dc5a6311f5b0e0f9ff42c999ae4e25fd9a22596",
+      "size": 1620,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -54,8 +54,8 @@
         "fileName": "maxpoly-drop.mid",
         "grid": 0
       },
-      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
-      "size": 1640,
+      "sha256": "55cfb486b98f0250d0b8727e9dc5a6311f5b0e0f9ff42c999ae4e25fd9a22596",
+      "size": 1620,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -97,8 +97,8 @@
         "fileName": "maxpoly-drop.mid",
         "grid": 0.125
       },
-      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
-      "size": 1640,
+      "sha256": "55cfb486b98f0250d0b8727e9dc5a6311f5b0e0f9ff42c999ae4e25fd9a22596",
+      "size": 1620,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -140,8 +140,8 @@
         "fileName": "maxpoly-drop.mid",
         "transpose": "none"
       },
-      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
-      "size": 1640,
+      "sha256": "55cfb486b98f0250d0b8727e9dc5a6311f5b0e0f9ff42c999ae4e25fd9a22596",
+      "size": 1620,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -183,8 +183,8 @@
         "fileName": "maxpoly-drop.mid",
         "pitchLevel": 3
       },
-      "sha256": "b92a4865a7d5a98e0dcfa339cab6daf6a60e1318191710c9255bc902ddbe96c4",
-      "size": 1640,
+      "sha256": "ceb3cc37359ae390f2d9cd861ae534c74026ac3e63a87e6f9311d1b247a58d9f",
+      "size": 1620,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -226,8 +226,8 @@
         "fileName": "maxpoly-drop.mid",
         "encoding": "utf-8"
       },
-      "sha256": "a192061bd95c4eb28f92d7cc2724659ded88db58d8729409011796a7400be88c",
-      "size": 819,
+      "sha256": "22710529f35bc776e57b9edcda65e05d33b81a3181a2bdfb3b3cd218e5b23b6a",
+      "size": 809,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -269,8 +269,8 @@
         "fileName": "maxpoly-drop.mid",
         "maxPoly": 2
       },
-      "sha256": "4cf2978c4fd6b01494436fa7206545637425390d9f67a98d827f69a8bbfd5221",
-      "size": 832,
+      "sha256": "8c6699de2aee081bb3ab05588322550ff24fa90e962ce904132ec7aaf27de3f1",
+      "size": 812,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -321,8 +321,8 @@
         "fileName": "maxpoly-drop.mid",
         "virtualNotes": true
       },
-      "sha256": "236e3133abe753360ffcc5719cb250aeee6d38897c64be21ff39c9dc0e785053",
-      "size": 1640,
+      "sha256": "55cfb486b98f0250d0b8727e9dc5a6311f5b0e0f9ff42c999ae4e25fd9a22596",
+      "size": 1620,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -364,8 +364,8 @@
         "fileName": "maxpoly-drop.mid",
         "bpm": 200
       },
-      "sha256": "9eaa48732aa0b711c7f7dfb4cb06806ed6845b018dad7f6d56f2fcbceda4b817",
-      "size": 1618,
+      "sha256": "8b8d266688fa246c74787fdb4440f885cf1cad45fe7e32007d337fef19f0f2a9",
+      "size": 1598,
       "info": {
         "transpose": 0,
         "bpm": 200.0,
@@ -407,8 +407,8 @@
         "fileName": "maxpoly-drop.mid",
         "maxPoly": 1
       },
-      "sha256": "49ef099a876ace5c1a538dcde8a29458cb1b43f8b65bc7416d81cf115738f4a9",
-      "size": 614,
+      "sha256": "0d807d2bdad4c7cd008a77082637e3cc9477e7337ca0bc6587b25c2508853f55",
+      "size": 594,
       "info": {
         "transpose": 0,
         "bpm": 120.0,

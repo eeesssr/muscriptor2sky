@@ -11,8 +11,8 @@
         "name": "dense-16th",
         "fileName": "dense-16th.mid"
       },
-      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
-      "size": 2158,
+      "sha256": "6d858a3fdb8f129286f9f4d2c4a5d5c17efd96dc98f43fb1dbc4f5913a1847db",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -57,8 +57,8 @@
         "fileName": "dense-16th.mid",
         "grid": 0
       },
-      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
-      "size": 2158,
+      "sha256": "6d858a3fdb8f129286f9f4d2c4a5d5c17efd96dc98f43fb1dbc4f5913a1847db",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -100,8 +100,8 @@
         "fileName": "dense-16th.mid",
         "grid": 0.125
       },
-      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
-      "size": 2158,
+      "sha256": "6d858a3fdb8f129286f9f4d2c4a5d5c17efd96dc98f43fb1dbc4f5913a1847db",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -143,8 +143,8 @@
         "fileName": "dense-16th.mid",
         "transpose": "none"
       },
-      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
-      "size": 2158,
+      "sha256": "6d858a3fdb8f129286f9f4d2c4a5d5c17efd96dc98f43fb1dbc4f5913a1847db",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -186,8 +186,8 @@
         "fileName": "dense-16th.mid",
         "pitchLevel": 3
       },
-      "sha256": "a73ad10d82246f44c4c84d219b70aab0d264efc9d17da0d64c651d9835b40066",
-      "size": 2158,
+      "sha256": "5bf905856dc834a28d234a310fc81e12dea35886b97e3cfeb41429dc24b59a90",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -229,8 +229,8 @@
         "fileName": "dense-16th.mid",
         "encoding": "utf-8"
       },
-      "sha256": "bbb49c0bb7eb59d17f4b9d3c1795f680265f4d2c74363f4c482afa05c263d94e",
-      "size": 1078,
+      "sha256": "27d108e629417505fd04712dc8b760b37375b7eef1b8b9ee2ae485a8cd05384b",
+      "size": 1068,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -272,8 +272,8 @@
         "fileName": "dense-16th.mid",
         "maxPoly": 2
       },
-      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
-      "size": 2158,
+      "sha256": "6d858a3fdb8f129286f9f4d2c4a5d5c17efd96dc98f43fb1dbc4f5913a1847db",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -315,8 +315,8 @@
         "fileName": "dense-16th.mid",
         "virtualNotes": true
       },
-      "sha256": "0111295a9b554afda3e859f04fe7b4b4d565397335d876d7f41e64b9ef8eaee9",
-      "size": 2158,
+      "sha256": "6d858a3fdb8f129286f9f4d2c4a5d5c17efd96dc98f43fb1dbc4f5913a1847db",
+      "size": 2138,
       "info": {
         "transpose": 0,
         "bpm": 480.0,
@@ -358,8 +358,8 @@
         "fileName": "dense-16th.mid",
         "bpm": 200
       },
-      "sha256": "e899341b3a3fc81a9ce3189901526438e8285d2e40037b79c9c570fc8cca02ee",
-      "size": 2144,
+      "sha256": "0b3f4737758ef9734231ba0fcbc3c0e8045a99dc29a89d8e2d131e06b1be0d08",
+      "size": 2124,
       "info": {
         "transpose": 0,
         "bpm": 800.0,

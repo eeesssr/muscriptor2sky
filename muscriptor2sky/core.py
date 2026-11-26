@@ -914,11 +914,15 @@ def write_sky(path: str, notes: Sequence[SkyNote], args, info: dict) -> None:
     # bpm 用微调后的值（info["bpm"] 已是 grid_safe_bpm 的结果），
     # 否则 SkyStudio 会按原始 bpm 重算网格，仍然对不上。
     bpm_out = float(info.get("bpm", args.bpm or 300))
+    # transcribedBy 默认留空，不预设任何工具名。
+    # 理由：本工具接受任何标准 MIDI —— DAW 导出的、手写的、别的转谱工具出的都行。
+    # 默认写死 "MuScriptor" 会给这些来源的输入错误署名，是事实性错误。
+    # 确实由 MuScriptor 转谱时，用 --transcribed MuScriptor 显式声明。
     meta = {
         "name": args.name or os.path.splitext(os.path.basename(args.input))[0],
         "author": args.author or "",
         "arrangedBy": args.arranged or "",
-        "transcribedBy": args.transcribed or "MuScriptor",
+        "transcribedBy": args.transcribed or "",
         "permission": "",
         "isComposed": True,
         "bpm": bpm_out,

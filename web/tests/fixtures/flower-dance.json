@@ -11,8 +11,8 @@
         "name": "flower-dance",
         "fileName": "flower-dance.mid"
       },
-      "sha256": "0ef7e7669255df377515a36e99ecb3206818c6e57f748c52cc63bbc19ea0c4e0",
-      "size": 134820,
+      "sha256": "b5e9348062e8aff0ac5f5e2ef3d1b7a8ec4f0a090de63875518f25a61e0f4c0f",
+      "size": 134800,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -67,8 +67,8 @@
         "fileName": "flower-dance.mid",
         "grid": 0
       },
-      "sha256": "0ef7e7669255df377515a36e99ecb3206818c6e57f748c52cc63bbc19ea0c4e0",
-      "size": 134820,
+      "sha256": "b5e9348062e8aff0ac5f5e2ef3d1b7a8ec4f0a090de63875518f25a61e0f4c0f",
+      "size": 134800,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -110,8 +110,8 @@
         "fileName": "flower-dance.mid",
         "grid": 0.125
       },
-      "sha256": "0ef7e7669255df377515a36e99ecb3206818c6e57f748c52cc63bbc19ea0c4e0",
-      "size": 134820,
+      "sha256": "b5e9348062e8aff0ac5f5e2ef3d1b7a8ec4f0a090de63875518f25a61e0f4c0f",
+      "size": 134800,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -153,8 +153,8 @@
         "fileName": "flower-dance.mid",
         "transpose": "none"
       },
-      "sha256": "4baec57dd4a3b1554fc6965f845f025cdd4f3477a5113d977328b02f52feecb8",
-      "size": 133010,
+      "sha256": "922fa719796ef71be17bbbada9fcfc6672016c1abb814b4e6946c2e089c8e1c7",
+      "size": 132990,
       "info": {
         "transpose": 0,
         "bpm": 319.1489361702128,
@@ -201,8 +201,8 @@
         "fileName": "flower-dance.mid",
         "pitchLevel": 3
       },
-      "sha256": "e5e3a5a5c09381b290c7986e6d3f1a8974527b66eb64a199474bc0823f8998dc",
-      "size": 134820,
+      "sha256": "49febe0621229c631a0c51f15113c0485e0d090917173bd00401e74cc5ca836b",
+      "size": 134800,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -244,8 +244,8 @@
         "fileName": "flower-dance.mid",
         "encoding": "utf-8"
       },
-      "sha256": "ca5b10fc90409bd72d5a527186395c5de569eab8309e96f2f1310197bcfb7f07",
-      "size": 67409,
+      "sha256": "7fe113add8437e07eea7ed7e7d53a23a110f0a7fd4be894b3bec559ccbb41418",
+      "size": 67399,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -287,8 +287,8 @@
         "fileName": "flower-dance.mid",
         "maxPoly": 2
       },
-      "sha256": "9327095115105d9727b4a1fe3b8cd9a01ec1fa2dc34f9e858765a81e61442c5b",
-      "size": 113672,
+      "sha256": "2e57e143aae9cd2822d7d49c3eaccc657c1d3b99af41327f2f65d2eec0b14807",
+      "size": 113652,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -335,8 +335,8 @@
         "fileName": "flower-dance.mid",
         "virtualNotes": true
       },
-      "sha256": "7712c2b61f8f54c831625f9456d2bda2cf663957bad00de74b13bbba8e6d3563",
-      "size": 137588,
+      "sha256": "37d2a5d10d05c4106551b6c586c1df00e1475196d8c26ef234e49985ebcf389c",
+      "size": 137568,
       "info": {
         "transpose": 1,
         "bpm": 319.1489361702128,
@@ -381,8 +381,8 @@
         "fileName": "flower-dance.mid",
         "bpm": 200
       },
-      "sha256": "28cc41fb9e9ce4c296ed1ea8fdb34aac99dbac347ed4da037ceb26e297b9877a",
-      "size": 132324,
+      "sha256": "f0a826f28ff8a3c6c23724b3a83436ed42b575b4710cf3254f8a519e7df1ccb0",
+      "size": 132304,
       "info": {
         "transpose": 1,
         "bpm": 800.0,

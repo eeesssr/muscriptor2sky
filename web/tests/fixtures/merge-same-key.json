@@ -11,8 +11,8 @@
         "name": "merge-same-key",
         "fileName": "merge-same-key.mid"
       },
-      "sha256": "5479c65ca2a89a4ad27d95d8f27bd74b9c5cd440470549da5c592ede8a87286d",
-      "size": 780,
+      "sha256": "cf2b690a7994bfa4e1b875156b75850a508909216523f5d285a2012c5eda6a39",
+      "size": 760,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -59,8 +59,8 @@
         "fileName": "merge-same-key.mid",
         "grid": 0
       },
-      "sha256": "5479c65ca2a89a4ad27d95d8f27bd74b9c5cd440470549da5c592ede8a87286d",
-      "size": 780,
+      "sha256": "cf2b690a7994bfa4e1b875156b75850a508909216523f5d285a2012c5eda6a39",
+      "size": 760,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -102,8 +102,8 @@
         "fileName": "merge-same-key.mid",
         "grid": 0.125
       },
-      "sha256": "5479c65ca2a89a4ad27d95d8f27bd74b9c5cd440470549da5c592ede8a87286d",
-      "size": 780,
+      "sha256": "cf2b690a7994bfa4e1b875156b75850a508909216523f5d285a2012c5eda6a39",
+      "size": 760,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -145,8 +145,8 @@
         "fileName": "merge-same-key.mid",
         "transpose": "none"
       },
-      "sha256": "5479c65ca2a89a4ad27d95d8f27bd74b9c5cd440470549da5c592ede8a87286d",
-      "size": 780,
+      "sha256": "cf2b690a7994bfa4e1b875156b75850a508909216523f5d285a2012c5eda6a39",
+      "size": 760,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -186,7 +186,7 @@
           "kind": "keys-in-range"
         }
       ],
-      "expectText": "[{\"name\":\"merge-same-key\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"MuScriptor\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key6\"},{\"time\":500,\"key\":\"1Key6\"},{\"time\":1000,\"key\":\"1Key6\"},{\"time\":1000,\"key\":\"1Key13\"},{\"time\":1500,\"key\":\"1Key0\"},{\"time\":1500,\"key\":\"1Key1\"},{\"time\":2000,\"key\":\"1Key6\"}]}]"
+      "expectText": "[{\"name\":\"merge-same-key\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key6\"},{\"time\":500,\"key\":\"1Key6\"},{\"time\":1000,\"key\":\"1Key6\"},{\"time\":1000,\"key\":\"1Key13\"},{\"time\":1500,\"key\":\"1Key0\"},{\"time\":1500,\"key\":\"1Key1\"},{\"time\":2000,\"key\":\"1Key6\"}]}]"
     },
     {
       "opts": {
@@ -194,8 +194,8 @@
         "fileName": "merge-same-key.mid",
         "pitchLevel": 3
       },
-      "sha256": "361b833434e12b578e80f04e1a727e281eefccbf28618ed51924ec0f8a4ccd19",
-      "size": 780,
+      "sha256": "6aefddf3587ca18d649be33a0c9d579ea9f449b21a0c5c5dcb54a7da503674ee",
+      "size": 760,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -237,8 +237,8 @@
         "fileName": "merge-same-key.mid",
         "encoding": "utf-8"
       },
-      "sha256": "e29c730493f7be3f9a3609fbb66b91f7ca97edeef2b01cd517b3b18e5d16082a",
-      "size": 389,
+      "sha256": "215b40adefd41a8a25941330cf9e14f20e10595b5344f3dabf1bd33613970fc3",
+      "size": 379,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -280,8 +280,8 @@
         "fileName": "merge-same-key.mid",
         "maxPoly": 2
       },
-      "sha256": "5479c65ca2a89a4ad27d95d8f27bd74b9c5cd440470549da5c592ede8a87286d",
-      "size": 780,
+      "sha256": "cf2b690a7994bfa4e1b875156b75850a508909216523f5d285a2012c5eda6a39",
+      "size": 760,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -323,8 +323,8 @@
         "fileName": "merge-same-key.mid",
         "virtualNotes": true
       },
-      "sha256": "c45ae7eae91ba32147ba01ccf0a7b7359abbf314092e51b728b6496a8c3104ea",
-      "size": 896,
+      "sha256": "0f54c6e3c5e0b2d55a68660962cf9160e5661478d0856d90c422356a26131e37",
+      "size": 876,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -367,8 +367,8 @@
         "fileName": "merge-same-key.mid",
         "bpm": 200
       },
-      "sha256": "c81e0ca5ad146c9ac2f27a4bba81f8ece33476c96fcf28d895fef6ab591618c3",
-      "size": 772,
+      "sha256": "b543d6d9ebb11b67dec4efe648b5caaa4ca058c02007ac54aa1317f41411c0af",
+      "size": 752,
       "info": {
         "transpose": 0,
         "bpm": 200.0,

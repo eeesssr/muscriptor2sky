@@ -11,8 +11,8 @@
         "name": "c-major-simple",
         "fileName": "c-major-simple.mid"
       },
-      "sha256": "ef9aea8377f128d6f408c81ae30a134c135b405619f949592eb45402ed8b426a",
-      "size": 834,
+      "sha256": "4022fdc8f9325e60aed3e624e821ce904a4042a4def268dca6d68ed3c3891f96",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -59,7 +59,7 @@
           "kind": "melody-all-kept"
         }
       ],
-      "expectText": "[{\"name\":\"c-major-simple\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"MuScriptor\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key0\"},{\"time\":500,\"key\":\"1Key1\"},{\"time\":1000,\"key\":\"1Key2\"},{\"time\":1500,\"key\":\"1Key3\"},{\"time\":2000,\"key\":\"1Key4\"},{\"time\":2500,\"key\":\"1Key5\"},{\"time\":3000,\"key\":\"1Key6\"},{\"time\":3500,\"key\":\"1Key7\"}]}]"
+      "expectText": "[{\"name\":\"c-major-simple\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key0\"},{\"time\":500,\"key\":\"1Key1\"},{\"time\":1000,\"key\":\"1Key2\"},{\"time\":1500,\"key\":\"1Key3\"},{\"time\":2000,\"key\":\"1Key4\"},{\"time\":2500,\"key\":\"1Key5\"},{\"time\":3000,\"key\":\"1Key6\"},{\"time\":3500,\"key\":\"1Key7\"}]}]"
     },
     {
       "opts": {
@@ -67,8 +67,8 @@
         "fileName": "c-major-simple.mid",
         "grid": 0
       },
-      "sha256": "ef9aea8377f128d6f408c81ae30a134c135b405619f949592eb45402ed8b426a",
-      "size": 834,
+      "sha256": "4022fdc8f9325e60aed3e624e821ce904a4042a4def268dca6d68ed3c3891f96",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -110,8 +110,8 @@
         "fileName": "c-major-simple.mid",
         "grid": 0.125
       },
-      "sha256": "ef9aea8377f128d6f408c81ae30a134c135b405619f949592eb45402ed8b426a",
-      "size": 834,
+      "sha256": "4022fdc8f9325e60aed3e624e821ce904a4042a4def268dca6d68ed3c3891f96",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -153,8 +153,8 @@
         "fileName": "c-major-simple.mid",
         "transpose": "none"
       },
-      "sha256": "ef9aea8377f128d6f408c81ae30a134c135b405619f949592eb45402ed8b426a",
-      "size": 834,
+      "sha256": "4022fdc8f9325e60aed3e624e821ce904a4042a4def268dca6d68ed3c3891f96",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -197,8 +197,8 @@
         "fileName": "c-major-simple.mid",
         "pitchLevel": 3
       },
-      "sha256": "a47c63102ef080229200edf987f1f3e299ca4c832c0f41da32b07b7e97140873",
-      "size": 834,
+      "sha256": "3ed791fa5d762f1bebfdc06c32e11511401c4ad3703dea4945f73451419f8b0e",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -244,8 +244,8 @@
         "fileName": "c-major-simple.mid",
         "encoding": "utf-8"
       },
-      "sha256": "89d4f1f06ab42973ed766fcc391b5a6da732dde789c4e010e32629ae7440f24d",
-      "size": 416,
+      "sha256": "754369ca230c7114b9bd03b716b4d6cbc4a902bcca74b1cfe87101f8415bd8e5",
+      "size": 406,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -287,8 +287,8 @@
         "fileName": "c-major-simple.mid",
         "maxPoly": 2
       },
-      "sha256": "ef9aea8377f128d6f408c81ae30a134c135b405619f949592eb45402ed8b426a",
-      "size": 834,
+      "sha256": "4022fdc8f9325e60aed3e624e821ce904a4042a4def268dca6d68ed3c3891f96",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -330,8 +330,8 @@
         "fileName": "c-major-simple.mid",
         "virtualNotes": true
       },
-      "sha256": "ef9aea8377f128d6f408c81ae30a134c135b405619f949592eb45402ed8b426a",
-      "size": 834,
+      "sha256": "4022fdc8f9325e60aed3e624e821ce904a4042a4def268dca6d68ed3c3891f96",
+      "size": 814,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -373,8 +373,8 @@
         "fileName": "c-major-simple.mid",
         "bpm": 200
       },
-      "sha256": "ab022310986d3c690a2217367c1083c865f216262165b7d832c8450f6862a47d",
-      "size": 830,
+      "sha256": "3b1a6cd66bf8c67345d5919adf351c3899b4b163c7db5aeda7a0dd8423e761a3",
+      "size": 810,
       "info": {
         "transpose": 0,
         "bpm": 200.0,

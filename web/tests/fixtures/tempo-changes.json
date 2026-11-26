@@ -11,8 +11,8 @@
         "name": "tempo-changes",
         "fileName": "tempo-changes.mid"
       },
-      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
-      "size": 1060,
+      "sha256": "c4101e022fa6ed4683ead650d9abc797f71d77e0bfc01e851ca83249ab4ed2c8",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -58,8 +58,8 @@
         "fileName": "tempo-changes.mid",
         "grid": 0
       },
-      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
-      "size": 1060,
+      "sha256": "c4101e022fa6ed4683ead650d9abc797f71d77e0bfc01e851ca83249ab4ed2c8",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -101,8 +101,8 @@
         "fileName": "tempo-changes.mid",
         "grid": 0.125
       },
-      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
-      "size": 1060,
+      "sha256": "c4101e022fa6ed4683ead650d9abc797f71d77e0bfc01e851ca83249ab4ed2c8",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -144,8 +144,8 @@
         "fileName": "tempo-changes.mid",
         "transpose": "none"
       },
-      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
-      "size": 1060,
+      "sha256": "c4101e022fa6ed4683ead650d9abc797f71d77e0bfc01e851ca83249ab4ed2c8",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -187,8 +187,8 @@
         "fileName": "tempo-changes.mid",
         "pitchLevel": 3
       },
-      "sha256": "996db07e29491ba5a3bcd45549b5f087911374d50d926bb058d46c9d8379188e",
-      "size": 1060,
+      "sha256": "ec351a9b20bbde0acfee62d80c89ea62d4095a95f3d7d17aaf27bb01ade7d79a",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -230,8 +230,8 @@
         "fileName": "tempo-changes.mid",
         "encoding": "utf-8"
       },
-      "sha256": "b280385cb4fa6374771112df5ad02e96fdbe6c3dec8d4197fd4a5aabe7061501",
-      "size": 529,
+      "sha256": "600290b6f66d950010c6c8450893dd9f91000f92f43e6f17da2aec28141aa7a3",
+      "size": 519,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -273,8 +273,8 @@
         "fileName": "tempo-changes.mid",
         "maxPoly": 2
       },
-      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
-      "size": 1060,
+      "sha256": "c4101e022fa6ed4683ead650d9abc797f71d77e0bfc01e851ca83249ab4ed2c8",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -316,8 +316,8 @@
         "fileName": "tempo-changes.mid",
         "virtualNotes": true
       },
-      "sha256": "5169504ceb5203379dba689330c87ef87ec3542f404e2f384e8ebf12a414c863",
-      "size": 1060,
+      "sha256": "c4101e022fa6ed4683ead650d9abc797f71d77e0bfc01e851ca83249ab4ed2c8",
+      "size": 1040,
       "info": {
         "transpose": 0,
         "bpm": 150.0,
@@ -359,8 +359,8 @@
         "fileName": "tempo-changes.mid",
         "bpm": 200
       },
-      "sha256": "ef5d8ea8554ca68cda00fc8a2c9d1550f133b617c597f3a8c12ee923f8bb23b4",
-      "size": 1058,
+      "sha256": "d1aa0004f96515a635458bdf8f4e1422574b40a2d62f993de3b5b633e98b4f35",
+      "size": 1038,
       "info": {
         "transpose": 0,
         "bpm": 200.0,

@@ -11,8 +11,8 @@
         "name": "octave-fold",
         "fileName": "octave-fold.mid"
       },
-      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
-      "size": 1226,
+      "sha256": "443277422d428b97ccb2806e43c690ce35ea93367d24096c96b69655176e1b68",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -59,8 +59,8 @@
         "fileName": "octave-fold.mid",
         "grid": 0
       },
-      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
-      "size": 1226,
+      "sha256": "443277422d428b97ccb2806e43c690ce35ea93367d24096c96b69655176e1b68",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -102,8 +102,8 @@
         "fileName": "octave-fold.mid",
         "grid": 0.125
       },
-      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
-      "size": 1226,
+      "sha256": "443277422d428b97ccb2806e43c690ce35ea93367d24096c96b69655176e1b68",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -145,8 +145,8 @@
         "fileName": "octave-fold.mid",
         "transpose": "none"
       },
-      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
-      "size": 1226,
+      "sha256": "443277422d428b97ccb2806e43c690ce35ea93367d24096c96b69655176e1b68",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -188,8 +188,8 @@
         "fileName": "octave-fold.mid",
         "pitchLevel": 3
       },
-      "sha256": "1fd1af9952617f3a3fc4adbfd39670c50798e237fc890eb1fe2fe98f23e3c476",
-      "size": 1226,
+      "sha256": "96cfed12b5dc849b29984a91a5f1ff7fd9a10ac8a78bc83f3a9573fdc9f23eec",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -231,8 +231,8 @@
         "fileName": "octave-fold.mid",
         "encoding": "utf-8"
       },
-      "sha256": "c37361fde47d6b7751c4899bfb6aa79cf53c12777aa7d109925ea65d52bfff16",
-      "size": 612,
+      "sha256": "48e2fdb32e5ca0d81d1aaef37847d3ba00e84a952dddee9fefc30b1edc70fb58",
+      "size": 602,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -274,8 +274,8 @@
         "fileName": "octave-fold.mid",
         "maxPoly": 2
       },
-      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
-      "size": 1226,
+      "sha256": "443277422d428b97ccb2806e43c690ce35ea93367d24096c96b69655176e1b68",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -317,8 +317,8 @@
         "fileName": "octave-fold.mid",
         "virtualNotes": true
       },
-      "sha256": "1c018edae3a8b6801e009f17c1dc30e66281704be34d9ede70a8f479201e6f30",
-      "size": 1226,
+      "sha256": "443277422d428b97ccb2806e43c690ce35ea93367d24096c96b69655176e1b68",
+      "size": 1206,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -360,8 +360,8 @@
         "fileName": "octave-fold.mid",
         "bpm": 200
       },
-      "sha256": "e16b4cdbf1cffead324b5237d27afb1ee2184644b2b504be35ba4aabf25f3282",
-      "size": 1220,
+      "sha256": "9a8eace4467a6345abb0072b69c1eb55f0f4c18b33c2cba41dd1768c3e56a4f6",
+      "size": 1200,
       "info": {
         "transpose": 0,
         "bpm": 400.0,

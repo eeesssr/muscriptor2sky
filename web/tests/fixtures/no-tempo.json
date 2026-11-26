@@ -11,8 +11,8 @@
         "name": "no-tempo",
         "fileName": "no-tempo.mid"
       },
-      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
-      "size": 934,
+      "sha256": "082a0bb55a2d3349c81694aecad33b99e3aee9e87182b06727393019b63c439a",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -60,8 +60,8 @@
         "fileName": "no-tempo.mid",
         "grid": 0
       },
-      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
-      "size": 934,
+      "sha256": "082a0bb55a2d3349c81694aecad33b99e3aee9e87182b06727393019b63c439a",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -103,8 +103,8 @@
         "fileName": "no-tempo.mid",
         "grid": 0.125
       },
-      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
-      "size": 934,
+      "sha256": "082a0bb55a2d3349c81694aecad33b99e3aee9e87182b06727393019b63c439a",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -146,8 +146,8 @@
         "fileName": "no-tempo.mid",
         "transpose": "none"
       },
-      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
-      "size": 934,
+      "sha256": "082a0bb55a2d3349c81694aecad33b99e3aee9e87182b06727393019b63c439a",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -189,8 +189,8 @@
         "fileName": "no-tempo.mid",
         "pitchLevel": 3
       },
-      "sha256": "c3491194f5df7fb88165ad0152ff2e4ba221d36ca077fefdf5602583d564835c",
-      "size": 934,
+      "sha256": "dc48e7cf190fe1829552a66d5ccff15b0072a6e233bc8b1c5e4066148e9d67b6",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -232,8 +232,8 @@
         "fileName": "no-tempo.mid",
         "encoding": "utf-8"
       },
-      "sha256": "b83594db4e31eb47cd2ea05562f3e09e5d22abddd35719914a9a5a4ffc66cfb7",
-      "size": 466,
+      "sha256": "39026e56516b86a43bca01610115968c6d85fc63bcd2b25934a1b795d5b0ad21",
+      "size": 456,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -275,8 +275,8 @@
         "fileName": "no-tempo.mid",
         "maxPoly": 2
       },
-      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
-      "size": 934,
+      "sha256": "082a0bb55a2d3349c81694aecad33b99e3aee9e87182b06727393019b63c439a",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -318,8 +318,8 @@
         "fileName": "no-tempo.mid",
         "virtualNotes": true
       },
-      "sha256": "f4cadd1f20486aae061bebee8c923a6548021d5f9a9110ecce8947925933cbb4",
-      "size": 934,
+      "sha256": "082a0bb55a2d3349c81694aecad33b99e3aee9e87182b06727393019b63c439a",
+      "size": 914,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -361,8 +361,8 @@
         "fileName": "no-tempo.mid",
         "bpm": 200
       },
-      "sha256": "f97c90972f485d3c9f796778910c1c00a8c9eea6f6f643cc71b36040ec783b81",
-      "size": 930,
+      "sha256": "a5bfd1286df73a7eb3f2d3b8ca86d89803dd1a816aa7b095941a360d220e8dbe",
+      "size": 910,
       "info": {
         "transpose": 0,
         "bpm": 200.0,

@@ -11,8 +11,8 @@
         "name": "single-note",
         "fileName": "single-note.mid"
       },
-      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
-      "size": 438,
+      "sha256": "99aa20763770f8925e201f1b46ed32a1fb3dcbbc3846a8e5920247969f54748c",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -51,7 +51,7 @@
           "kind": "keys-in-range"
         }
       ],
-      "expectText": "[{\"name\":\"single-note\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"MuScriptor\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key0\"}]}]"
+      "expectText": "[{\"name\":\"single-note\",\"author\":\"\",\"arrangedBy\":\"\",\"transcribedBy\":\"\",\"permission\":\"\",\"isComposed\":true,\"bpm\":120.0,\"bitsPerPage\":16,\"pitchLevel\":0,\"isEncrypted\":false,\"songNotes\":[{\"time\":0,\"key\":\"1Key0\"}]}]"
     },
     {
       "opts": {
@@ -59,8 +59,8 @@
         "fileName": "single-note.mid",
         "grid": 0
       },
-      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
-      "size": 438,
+      "sha256": "99aa20763770f8925e201f1b46ed32a1fb3dcbbc3846a8e5920247969f54748c",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -102,8 +102,8 @@
         "fileName": "single-note.mid",
         "grid": 0.125
       },
-      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
-      "size": 438,
+      "sha256": "99aa20763770f8925e201f1b46ed32a1fb3dcbbc3846a8e5920247969f54748c",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -145,8 +145,8 @@
         "fileName": "single-note.mid",
         "transpose": "none"
       },
-      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
-      "size": 438,
+      "sha256": "99aa20763770f8925e201f1b46ed32a1fb3dcbbc3846a8e5920247969f54748c",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -188,8 +188,8 @@
         "fileName": "single-note.mid",
         "pitchLevel": 3
       },
-      "sha256": "d4de777803a3d54f163a2476bd41f07408bf1bc7708b1ca984a87a7f16aef184",
-      "size": 438,
+      "sha256": "a8d6c2a366b4195dc2cc9d2538e0a40c638a6ac3bc17d58b37c8dde345a262d7",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -235,8 +235,8 @@
         "fileName": "single-note.mid",
         "encoding": "utf-8"
       },
-      "sha256": "ddb1bcbfa6c7e95269fc300557fb2fc514f4457be367df6639c7d685c5e7091a",
-      "size": 218,
+      "sha256": "4695357be0b98cdeaa57aaebb2df847a331d7da6a29ecfd7d2add15ffca2802a",
+      "size": 208,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -278,8 +278,8 @@
         "fileName": "single-note.mid",
         "maxPoly": 2
       },
-      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
-      "size": 438,
+      "sha256": "99aa20763770f8925e201f1b46ed32a1fb3dcbbc3846a8e5920247969f54748c",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -321,8 +321,8 @@
         "fileName": "single-note.mid",
         "virtualNotes": true
       },
-      "sha256": "75cfebb61a8da9297ffa63f25c875200f8ff135ffd1197c2222b638a0d92f234",
-      "size": 438,
+      "sha256": "99aa20763770f8925e201f1b46ed32a1fb3dcbbc3846a8e5920247969f54748c",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -364,8 +364,8 @@
         "fileName": "single-note.mid",
         "bpm": 200
       },
-      "sha256": "55504a93cf1514b1cace3edc3d00c0ceae97106cdd930e1cfad4c9d3a66300e5",
-      "size": 438,
+      "sha256": "924d727e3846415bcd30b77340033e86b548a2f3ea435159121e05f191d684fc",
+      "size": 418,
       "info": {
         "transpose": 0,
         "bpm": 200.0,

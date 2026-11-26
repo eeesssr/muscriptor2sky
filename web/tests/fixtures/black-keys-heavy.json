@@ -11,8 +11,8 @@
         "name": "black-keys-heavy",
         "fileName": "black-keys-heavy.mid"
       },
-      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
-      "size": 1516,
+      "sha256": "5be31e01c773e250d951ef92afc640d723c354e229855bb604675cb0796beeee",
+      "size": 1496,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -63,8 +63,8 @@
         "fileName": "black-keys-heavy.mid",
         "grid": 0
       },
-      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
-      "size": 1516,
+      "sha256": "5be31e01c773e250d951ef92afc640d723c354e229855bb604675cb0796beeee",
+      "size": 1496,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -106,8 +106,8 @@
         "fileName": "black-keys-heavy.mid",
         "grid": 0.125
       },
-      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
-      "size": 1516,
+      "sha256": "5be31e01c773e250d951ef92afc640d723c354e229855bb604675cb0796beeee",
+      "size": 1496,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -149,8 +149,8 @@
         "fileName": "black-keys-heavy.mid",
         "transpose": "none"
       },
-      "sha256": "bfbd6ac75f88df33f94e18bb560a1e659f12cc4f820f482580d5cbbb25c29309",
-      "size": 1516,
+      "sha256": "820c3fd3eba635eabda6e700ab8d4a60bf8dcc1ced092ce6fef8bab995eb37f0",
+      "size": 1496,
       "info": {
         "transpose": 0,
         "bpm": 240.0,
@@ -197,8 +197,8 @@
         "fileName": "black-keys-heavy.mid",
         "pitchLevel": 3
       },
-      "sha256": "abe007a5c26ea3f83c7809caa3add253050939f642283635f04b65113b24bdee",
-      "size": 1516,
+      "sha256": "0df03b830800c2bd154819bf501ed6283c9dcf9bdb7d443e3a6ea4ede92a16e3",
+      "size": 1496,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -240,8 +240,8 @@
         "fileName": "black-keys-heavy.mid",
         "encoding": "utf-8"
       },
-      "sha256": "74256a06b1bd42dab92fc15e3d31150bd247cb79d69f220467e1d522467813d0",
-      "size": 757,
+      "sha256": "ff34a79ab3c55ea3f9a2b9ffeee9a6462055e7c6ed348d69a9e2308abb360547",
+      "size": 747,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -283,8 +283,8 @@
         "fileName": "black-keys-heavy.mid",
         "maxPoly": 2
       },
-      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
-      "size": 1516,
+      "sha256": "5be31e01c773e250d951ef92afc640d723c354e229855bb604675cb0796beeee",
+      "size": 1496,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -326,8 +326,8 @@
         "fileName": "black-keys-heavy.mid",
         "virtualNotes": true
       },
-      "sha256": "ea455976094544a7dec76d1a0c8182f8aad1e6fd457c29a72f5f6ea1df3f1558",
-      "size": 1516,
+      "sha256": "5be31e01c773e250d951ef92afc640d723c354e229855bb604675cb0796beeee",
+      "size": 1496,
       "info": {
         "transpose": -1,
         "bpm": 240.0,
@@ -373,8 +373,8 @@
         "fileName": "black-keys-heavy.mid",
         "bpm": 200
       },
-      "sha256": "d0d5eaa4f8442afae7d8d0eb47d3802042c4fbfbf83f35293fa4c6134c13bea0",
-      "size": 1510,
+      "sha256": "a7d756eb3ce9cc6b080625d6b7dab79cf0d264ee71288b54bb9d086b0dca8809",
+      "size": 1490,
       "info": {
         "transpose": -1,
         "bpm": 400.0,

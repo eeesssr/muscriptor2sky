@@ -142,3 +142,50 @@ def test_output_is_utf16le_with_bom(tmp_path):
     payload = json.loads(raw[2:].decode("utf-16-le"))
     assert isinstance(payload, list)
     assert "songNotes" in payload[0]
+
+
+# ---------------------------------------------------------------------------
+# 署名准确性
+# ---------------------------------------------------------------------------
+#
+# transcribedBy 记录的是「谁把音频转成了 MIDI」。本工具接受任何标准 MIDI
+# （DAW 导出、手写、别的转谱工具），所以不能默认写死某个工具名 ——
+# 那会给非 MuScriptor 来源的输入错误署名，是事实性错误。
+
+def _read_meta(path):
+    raw = open(str(path), "rb").read()
+    if raw[:2] == b"\xff\xfe":
+        text = raw[2:].decode("utf-16-le")
+    else:
+        text = raw.decode("utf-8")
+    return json.loads(text)[0]
+
+
+def test_transcribed_by_defaults_to_empty(tmp_path):
+    """默认不能署名任何转谱工具。"""
+    mid = tmp_path / "in.mid"
+    _write(mid, [(0, 60, 480), (480, 62, 480)])
+    m = read_midi(str(mid))
+    args = _args()
+    notes, info = midi_to_sky(m, args)
+    out = tmp_path / "out.txt"
+    write_sky(str(out), notes, args, info)
+
+    meta = _read_meta(out)
+    assert meta["transcribedBy"] == "", (
+        "默认 transcribedBy 必须为空，不能预设 MuScriptor 等工具名："
+        "本工具接受任意来源的 MIDI，默认署名会构成错误署名"
+    )
+
+
+def test_transcribed_by_explicit_value_is_kept(tmp_path):
+    """显式指定时必须原样写入。"""
+    mid = tmp_path / "in.mid"
+    _write(mid, [(0, 60, 480), (480, 62, 480)])
+    m = read_midi(str(mid))
+    args = _args(transcribed="MuScriptor")
+    notes, info = midi_to_sky(m, args)
+    out = tmp_path / "out.txt"
+    write_sky(str(out), notes, args, info)
+
+    assert _read_meta(out)["transcribedBy"] == "MuScriptor"

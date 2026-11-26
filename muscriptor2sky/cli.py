@@ -31,7 +31,10 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("-n", "--name", default=None, help="曲名（写入 name 字段）")
     ap.add_argument("-a", "--author", default=None, help="作者（写入 author 字段）")
     ap.add_argument("--arranged", default=None, help="arrangedBy 字段")
-    ap.add_argument("--transcribed", default=None, help="transcribedBy 字段")
+    ap.add_argument(
+        "--transcribed", default=None,
+        help="transcribedBy 字段（谁把音频转成的 MIDI）。默认留空，不预设工具名。",
+    )
     ap.add_argument("--bpm", type=float, default=None, help="bpm 字段（默认取 MIDI 速度）")
     ap.add_argument("--bits-per-page", type=int, default=16, help="bitsPerPage 字段，默认 16")
     ap.add_argument(

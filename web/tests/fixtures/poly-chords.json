@@ -11,8 +11,8 @@
         "name": "poly-chords",
         "fileName": "poly-chords.mid"
       },
-      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
-      "size": 1686,
+      "sha256": "4763995cace239c6cb6ec03d0e10382a0b119dcba09f245766444e1d688d9c00",
+      "size": 1666,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -66,8 +66,8 @@
         "fileName": "poly-chords.mid",
         "grid": 0
       },
-      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
-      "size": 1686,
+      "sha256": "4763995cace239c6cb6ec03d0e10382a0b119dcba09f245766444e1d688d9c00",
+      "size": 1666,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -109,8 +109,8 @@
         "fileName": "poly-chords.mid",
         "grid": 0.125
       },
-      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
-      "size": 1686,
+      "sha256": "4763995cace239c6cb6ec03d0e10382a0b119dcba09f245766444e1d688d9c00",
+      "size": 1666,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -152,8 +152,8 @@
         "fileName": "poly-chords.mid",
         "transpose": "none"
       },
-      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
-      "size": 1686,
+      "sha256": "4763995cace239c6cb6ec03d0e10382a0b119dcba09f245766444e1d688d9c00",
+      "size": 1666,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -195,8 +195,8 @@
         "fileName": "poly-chords.mid",
         "pitchLevel": 3
       },
-      "sha256": "59dd1a270e06468b8a22300e7dfff471ee6556d18839d34b3a9a74cfffc0d172",
-      "size": 1686,
+      "sha256": "e4ddee88e93dda431c55e036ed6136d76474826395770922e597533e02877ab5",
+      "size": 1666,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -238,8 +238,8 @@
         "fileName": "poly-chords.mid",
         "encoding": "utf-8"
       },
-      "sha256": "c7da31a4dd0853427463fd95fc72f85ed83ebe874cb579d990079a3a50c4abe4",
-      "size": 842,
+      "sha256": "a1632d19bcc9634782a3bc89475fca994cb0527c6d875186c3c689c3e9894ab8",
+      "size": 832,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -281,8 +281,8 @@
         "fileName": "poly-chords.mid",
         "maxPoly": 2
       },
-      "sha256": "03d6fcdb5077a80b10d2a5906fbdcc60d717362e2003d5a89950b4d0fbdb7f07",
-      "size": 822,
+      "sha256": "50119e9549bb84d02d47c3709386abbff4dded33ec17cbfba1f7e9400c48510c",
+      "size": 802,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -333,8 +333,8 @@
         "fileName": "poly-chords.mid",
         "virtualNotes": true
       },
-      "sha256": "2ff7bfba82d35030dab0cbd76cc150baa9016803dce9c6188f1b34f2eb116f98",
-      "size": 1686,
+      "sha256": "4763995cace239c6cb6ec03d0e10382a0b119dcba09f245766444e1d688d9c00",
+      "size": 1666,
       "info": {
         "transpose": 0,
         "bpm": 120.0,
@@ -376,8 +376,8 @@
         "fileName": "poly-chords.mid",
         "bpm": 200
       },
-      "sha256": "31cb1e218e87a67961f6169ef869f22b5093d30fcc57e0eb2fc91aa43021dfd1",
-      "size": 1662,
+      "sha256": "2b13c75c641533ac8582995dd750fdec396fd273ed5007900da1990e3e833359",
+      "size": 1642,
       "info": {
         "transpose": 0,
         "bpm": 200.0,

@@ -171,6 +171,8 @@ python -m muscriptor2sky song.mid --root 57
 | `-o, --out` | 同名 .txt | 输出路径 |
 | `-n, --name` | 文件名 | 曲名 |
 | `-a, --author` | 空 | 作者 |
+| `--arranged` | 空 | 编曲者(写入 `arrangedBy`) |
+| `--transcribed` | 空 | 转谱者(写入 `transcribedBy`)。默认留空,不预设工具名 |
 | `--bpm` | MIDI 速度 | 只影响编辑器显示 |
 | `--pitch-level` | 0 | 定调(0=C 调) |
 | `--root` | 60 | 最低键音高 |
@@ -199,7 +201,8 @@ python -m muscriptor2sky "晴天.txt" -o 晴天.mid
 muscriptor transcribe --model medium --instruments "acoustic_piano" audio.wav -o piano.mid
 
 # 2. 转成光遇琴谱
-python -m muscriptor2sky piano.mid -n "曲名" -a "作者" --verify
+#    --transcribed 记录「谁把音频转成的 MIDI」，这一步是 MuScriptor 就用它
+python -m muscriptor2sky piano.mid -n "曲名" -a "作者" --transcribed MuScriptor --verify
 
 # 3. 把 .txt 传到手机
 #    Android: /sdcard/skyMusicAuto/
